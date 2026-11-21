@@ -1,0 +1,4275 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="artifact-type" content="tool" />
+  <meta name="design-style" content="midnight-lavender" />
+  <title>Passeio por Viseu — Caderno &amp; Roteiro da Letícia 💜</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Midnight Black & Soft Lavender/Purple Palette */
+      --background: #0b0812;
+      --surface-container-low: #130e1f;
+      --surface-container: #1b142b;
+      --surface-container-high: #261c3d;
+      --surface-card: #171126;
+
+      --on-surface: #f5efff;
+      --on-surface-variant: #c2b3dc;
+
+      --outline: #5b4582;
+      --outline-variant: #2f234a;
+
+      --primary: #a855f7;
+      --primary-hover: #c084fc;
+      --on-primary: #120821;
+      --primary-container: #24163e;
+      --primary-border-warm: #7e3af2;
+      --on-primary-container: #e9d5ff;
+
+      --secondary: #f472b6;
+      --secondary-container: #331732;
+      --on-secondary-container: #fbcfe8;
+
+      --tertiary: #34d399;
+      --tertiary-container: #102a27;
+      --tertiary-border: #1e5c52;
+      --on-tertiary-container: #a7f3d0;
+
+      --patrimony: #818cf8;
+      --patrimony-container: #1a1d3d;
+      --patrimony-border: #434994;
+      --on-patrimony-container: #c7d2fe;
+
+      --gold: #fbbf24;
+      --gold-container: #2e2313;
+
+      --error: #fb7185;
+      --on-error: #1f080e;
+      --error-container: #381520;
+
+      --positive: #34d399;
+      --warning: #fbbf24;
+      --focus: #c084fc;
+
+      /* Map cartography tones (Dark Starry Violet) */
+      --map-paper: #0f0b1a;
+      --map-grid: rgba(168, 85, 247, 0.14);
+      --map-shadow: rgba(0, 0, 0, 0.55);
+      --map-ring-primary: rgba(192, 132, 252, 0.35);
+      --backdrop: rgba(6, 4, 12, 0.78);
+
+      /* Soft & Playful Fonts */
+      --font-headline: 'Fredoka', 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-label: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+      /* Type scale */
+      --display-size: clamp(2rem, 1.4rem + 2.4vw, 3.1rem);
+      --headline-size: clamp(1.3rem, 1.1rem + 0.65vw, 1.65rem);
+      --subhead-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.18rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.12vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Softer, Playful Shapes */
+      --rounded: 0.75rem;
+      --rounded-lg: 1.25rem;
+      --rounded-arch: 32px 32px 16px 16px;
+      --rounded-full: 9999px;
+
+      /* Soft Glows & Shadows */
+      --soft-shadow: 0 8px 26px rgba(4, 2, 10, 0.45);
+      --soft-shadow-raised: 0 14px 36px rgba(10, 4, 24, 0.68), 0 0 0 1px rgba(192, 132, 252, 0.18);
+      --purple-glow: 0 0 28px rgba(168, 85, 247, 0.22);
+      --warm-hairline: 1px solid var(--outline-variant);
+      --lavender-gradient: linear-gradient(90deg, transparent, #a855f7, #f472b6, #a855f7, transparent);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.55rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.25rem;
+      --space-2xl: 3.75rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 150ms;
+      --dur-short: 240ms;
+      --dur-long: 450ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      background-image:
+        radial-gradient(circle at 12% 8%, rgba(168, 85, 247, 0.16), transparent 36%),
+        radial-gradient(circle at 88% 16%, rgba(244, 114, 182, 0.11), transparent 32%),
+        radial-gradient(circle at 50% 92%, rgba(129, 140, 248, 0.10), transparent 40%);
+      background-attachment: fixed;
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Page layout */
+    .app-shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: var(--space-md) var(--space-lg) var(--space-2xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .app-shell * { min-width: 0; }
+
+    /* Masthead / Hero */
+    .masthead {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(27, 18, 46, 0.96), rgba(16, 11, 28, 0.98));
+      border: 1px solid rgba(168, 85, 247, 0.28);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--soft-shadow), var(--purple-glow);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .masthead::after {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(192, 132, 252, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .masthead-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-hover);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .level-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--rounded-full);
+      background: rgba(168, 85, 247, 0.18);
+      color: var(--on-primary-container);
+      border: 1px solid rgba(192, 132, 252, 0.38);
+      font-size: var(--label-size);
+      font-weight: 700;
+    }
+
+    .level-pill-count {
+      font-family: var(--font-mono);
+      padding: 0.14rem 0.5rem;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 700;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm);
+    }
+    .title em {
+      font-style: normal;
+      background: linear-gradient(120deg, #d8b4fe 0%, #c084fc 45%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-lede {
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+    .soft-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--rounded-full);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(192, 132, 252, 0.22);
+      font-size: 0.78rem;
+      color: var(--on-primary-container);
+      font-weight: 500;
+    }
+
+    /* Gentle nudge card */
+    .nudge-card {
+      background: linear-gradient(150deg, rgba(46, 26, 79, 0.85), rgba(29, 17, 52, 0.92));
+      border: 1px solid rgba(192, 132, 252, 0.36);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .nudge-kicker {
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+    .nudge-quote {
+      font-family: var(--font-headline);
+      font-size: 1.24rem;
+      font-weight: 500;
+      line-height: 1.32;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .nudge-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+
+    /* Decorative rule */
+    .ornament-rule {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--primary-hover);
+      font-family: var(--font-headline);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .ornament-rule::before,
+    .ornament-rule::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--lavender-gradient);
+      opacity: 0.65;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 42px;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--rounded-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-spring),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out);
+      text-decoration: none;
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn:active:not(:disabled) { transform: translateY(1px) scale(0.98); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #9333ea);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(168, 85, 247, 0.35);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #c084fc, #a855f7);
+      box-shadow: 0 6px 20px rgba(192, 132, 252, 0.45);
+    }
+
+    .btn-pink {
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(236, 72, 153, 0.3);
+    }
+    .btn-pink:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border-color: rgba(192, 132, 252, 0.25);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: #31234f;
+      border-color: rgba(192, 132, 252, 0.5);
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+    .btn-emerald:hover:not(:disabled) {
+      background: linear-gradient(135deg, #34d399, #10b981);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--on-surface-variant);
+      border-color: var(--outline-variant);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: var(--on-error);
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.38rem 0.85rem;
+      font-size: 0.8125rem;
+    }
+
+    /* Arch Metric Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .arch-card {
+      background: linear-gradient(180deg, rgba(29, 21, 48, 0.92), rgba(19, 14, 31, 0.95));
+      border: 1px solid rgba(168, 85, 247, 0.22);
+      border-radius: var(--rounded-arch);
+      padding: var(--space-lg) var(--space-md) var(--space-md);
+      text-align: center;
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-xs);
+      transition: transform var(--dur-short) var(--ease-spring), border-color var(--dur-short);
+    }
+    .arch-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(192, 132, 252, 0.45);
+    }
+    .arch-card.is-featured {
+      background: linear-gradient(160deg, rgba(58, 28, 102, 0.85), rgba(28, 16, 54, 0.95));
+      border-color: rgba(192, 132, 252, 0.5);
+      box-shadow: var(--soft-shadow), var(--purple-glow);
+    }
+
+    .arch-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .arch-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.55rem, 1.3rem + 0.9vw, 2.2rem);
+      line-height: 1.12;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .arch-sub {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-hover);
+    }
+    .arch-card.is-featured .arch-sub {
+      color: var(--on-secondary-container);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: var(--rounded-full);
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      margin-top: var(--space-xs);
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--rounded-full);
+      background: linear-gradient(90deg, #a855f7, #f472b6, #34d399);
+      transition: width var(--dur-long) var(--ease-out);
+      width: 0%;
+    }
+
+    /* Prominent Route Mode Switcher (Full Route vs Individual Bairro -> Destination) */
+    .mode-banner {
+      background: linear-gradient(135deg, rgba(35, 22, 62, 0.95), rgba(19, 13, 33, 0.98));
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .mode-banner-copy {
+      display: grid;
+      gap: 0.15rem;
+    }
+    .mode-banner-title {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .mode-banner-sub {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+
+    .segmented-mode {
+      display: inline-flex;
+      flex-wrap: wrap;
+      background: var(--background);
+      padding: 0.3rem;
+      border-radius: var(--rounded-full);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      gap: 0.3rem;
+    }
+    .segmented-btn {
+      min-height: 42px;
+      padding: 0.45rem 1.15rem;
+      border-radius: var(--rounded-full);
+      border: 0;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .segmented-btn:hover {
+      color: var(--on-surface);
+      background: rgba(168, 85, 247, 0.12);
+    }
+    .segmented-btn.is-active {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+    }
+
+    /* Individual Mode Spotlight Card */
+    .individual-spotlight {
+      background: linear-gradient(155deg, rgba(48, 25, 84, 0.9), rgba(23, 15, 41, 0.96));
+      border: 1px solid rgba(244, 114, 182, 0.42);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      box-shadow: var(--soft-shadow), 0 0 24px rgba(244, 114, 182, 0.12);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .individual-spotlight.is-hidden { display: none; }
+
+    .spotlight-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .spotlight-route-title {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin: 0.2rem 0 0;
+    }
+    .spotlight-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .mini-stat {
+      background: rgba(11, 8, 18, 0.55);
+      border: 1px solid rgba(192, 132, 252, 0.22);
+      border-radius: var(--rounded);
+      padding: 0.65rem 0.85rem;
+      display: grid;
+      gap: 0.1rem;
+    }
+    .mini-stat-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-surface-variant);
+    }
+    .mini-stat-val {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--on-primary-container);
+    }
+
+    .quick-dest-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .dest-pill {
+      padding: 0.35rem 0.72rem;
+      border-radius: var(--rounded-full);
+      border: 1px solid rgba(192, 132, 252, 0.24);
+      background: rgba(11, 8, 18, 0.5);
+      color: var(--on-surface-variant);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all var(--dur-micro) var(--ease-out);
+    }
+    .dest-pill:hover {
+      border-color: var(--primary-hover);
+      color: var(--on-surface);
+      background: rgba(168, 85, 247, 0.16);
+    }
+    .dest-pill.is-selected {
+      background: var(--primary);
+      border-color: var(--primary-hover);
+      color: #ffffff;
+      box-shadow: 0 2px 12px rgba(168, 85, 247, 0.4);
+    }
+    .dest-pill.is-done {
+      border-color: rgba(52, 211, 153, 0.45);
+    }
+
+    /* Mobile Mode Switcher */
+    .mobile-switcher {
+      display: none;
+      background: var(--surface-container);
+      padding: var(--space-xs);
+      border-radius: var(--rounded-full);
+      border: var(--warm-hairline);
+      gap: var(--space-xs);
+    }
+    .mobile-mode-btn {
+      flex: 1;
+      min-height: 44px;
+      border: 0;
+      border-radius: var(--rounded-full);
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      transition: background-color var(--dur-micro), color var(--dur-micro);
+    }
+    .mobile-mode-btn.is-active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--soft-shadow);
+    }
+
+    /* Main Workspace Grid */
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .list-column {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .map-column {
+      position: sticky;
+      top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Filter Panel */
+    .panel {
+      background: var(--surface-container-low);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      box-shadow: var(--soft-shadow);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .text-input, .textarea-input, .select-input {
+      width: 100%;
+      background: var(--background);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.9375rem;
+      transition: border-color var(--dur-micro), box-shadow var(--dur-micro);
+    }
+    .text-input::placeholder, .textarea-input::placeholder {
+      color: rgba(194, 179, 220, 0.55);
+    }
+    .text-input:focus, .textarea-input:focus, .select-input:focus {
+      outline: none;
+      border-color: var(--primary-hover);
+      box-shadow: 0 0 0 3px var(--map-ring-primary);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip-btn {
+      min-height: 38px;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--rounded-full);
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-card);
+      color: var(--on-surface-variant);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--dur-micro) var(--ease-out);
+    }
+    .chip-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .chip-btn.is-active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-hover);
+      box-shadow: 0 2px 10px rgba(168, 85, 247, 0.35);
+    }
+    .chip-btn.is-active-nature {
+      background: #059669;
+      color: #ffffff;
+      border-color: var(--tertiary);
+    }
+    .chip-btn.is-active-heritage {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: var(--patrimony);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: var(--rounded-full);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot-start { background: var(--secondary); box-shadow: 0 0 8px rgba(244, 114, 182, 0.65); }
+    .dot-nature { background: var(--tertiary); }
+    .dot-heritage { background: var(--patrimony); }
+    .dot-mixed { background: linear-gradient(135deg, var(--primary) 50%, var(--secondary) 50%); }
+
+    /* Circular / Return Toggle */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--warm-hairline);
+    }
+    .toggle-info-title {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+    .toggle-info-sub {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+
+    .switch-btn {
+      position: relative;
+      width: 52px;
+      height: 30px;
+      border-radius: var(--rounded-full);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      background: var(--surface-container-high);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color var(--dur-short) var(--ease-in-out);
+    }
+    .switch-btn[aria-checked="true"] {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      border-color: transparent;
+    }
+    .switch-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: var(--rounded-full);
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      transition: transform var(--dur-short) var(--ease-spring);
+    }
+    .switch-btn[aria-checked="true"] .switch-knob {
+      transform: translateX(22px);
+    }
+
+    /* Callout */
+    .info-callout {
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-left: 4px solid var(--secondary);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+    .info-callout strong { color: var(--on-surface); }
+
+    /* Itinerary Stop Cards */
+    .itinerary-list {
+      display: grid;
+      gap: 0;
+    }
+    .itinerary-list.is-individual-grid {
+      gap: var(--space-md);
+    }
+
+    .segment-connector {
+      position: relative;
+      padding: var(--space-sm) 0 var(--space-sm) 2.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .segment-connector::before {
+      content: "";
+      position: absolute;
+      left: 1.2rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(168, 85, 247, 0.5), rgba(244, 114, 182, 0.5));
+    }
+    .segment-connector.is-return::before {
+      background: transparent;
+      border-left: 2px dashed var(--secondary);
+    }
+
+    .segment-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.26rem 0.78rem;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      border: 1px solid rgba(192, 132, 252, 0.22);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--on-primary-container);
+    }
+
+    .stop-card {
+      background: var(--surface-card);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      box-shadow: var(--soft-shadow);
+      display: grid;
+      gap: var(--space-sm);
+      cursor: pointer;
+      transition: box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-short) var(--ease-spring),
+                  border-color var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+      container-type: inline-size;
+    }
+    .stop-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(192, 132, 252, 0.45);
+      box-shadow: var(--soft-shadow-raised);
+    }
+    .stop-card.is-selected {
+      border-color: var(--primary-hover);
+      box-shadow: 0 0 0 2px rgba(192, 132, 252, 0.55), var(--soft-shadow-raised);
+    }
+    .stop-card.is-completed {
+      background: linear-gradient(145deg, rgba(16, 42, 39, 0.88), rgba(20, 17, 36, 0.96));
+      border-color: var(--tertiary-border);
+    }
+    .stop-card.is-start-hub {
+      background: linear-gradient(145deg, rgba(54, 24, 78, 0.72), rgba(24, 15, 42, 0.95));
+      border-color: rgba(244, 114, 182, 0.45);
+    }
+
+    .stop-head {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .stop-num-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--rounded-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .stop-num-badge.cat-partida { background: linear-gradient(135deg, #ec4899, #a855f7); }
+    .stop-num-badge.cat-natureza { background: linear-gradient(135deg, #10b981, #059669); }
+    .stop-num-badge.cat-patrimonio { background: linear-gradient(135deg, #818cf8, #9333ea); }
+    .stop-num-badge.is-done {
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+      border: 2px solid var(--tertiary);
+    }
+
+    .stop-title-wrap {
+      flex: 1;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.18rem 0.65rem;
+      border-radius: var(--rounded-full);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .badge-nature {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      border: 1px solid var(--tertiary-border);
+    }
+    .badge-heritage {
+      background: var(--patrimony-container);
+      color: var(--on-patrimony-container);
+      border: 1px solid var(--patrimony-border);
+    }
+    .badge-lavender {
+      background: rgba(168, 85, 247, 0.16);
+      color: var(--on-primary-container);
+      border: 1px solid rgba(192, 132, 252, 0.32);
+    }
+    .badge-pink {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border: 1px solid rgba(244, 114, 182, 0.38);
+    }
+    .badge-gold {
+      background: var(--gold-container);
+      color: #fde68a;
+      border: 1px solid rgba(251, 191, 36, 0.35);
+    }
+
+    .stop-title {
+      font-family: var(--font-headline);
+      font-size: 1.32rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .stop-meta {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+    .stop-desc {
+      margin: 0;
+      font-size: 0.9125rem;
+      color: var(--on-surface-variant);
+    }
+
+    .direct-trip-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: var(--rounded);
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px dashed rgba(192, 132, 252, 0.35);
+      font-size: 0.8125rem;
+      color: var(--on-primary-container);
+    }
+
+    .stop-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--warm-hairline);
+    }
+
+    .medal-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .medal-pill.is-unlocked {
+      color: var(--tertiary);
+    }
+
+    .stop-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Map Container */
+    .map-card {
+      background: var(--surface-container-low);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm);
+      box-shadow: var(--soft-shadow);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .map-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    .map-wrap {
+      position: relative;
+      border-radius: var(--rounded);
+      overflow: hidden;
+      border: 1px solid rgba(192, 132, 252, 0.22);
+    }
+
+    #map {
+      width: 100%;
+      height: 540px;
+      min-height: 440px;
+      background-color: var(--map-paper);
+      background-image:
+        radial-gradient(circle at 30% 45%, rgba(168, 85, 247, 0.14), transparent 55%),
+        radial-gradient(circle at 75% 35%, rgba(52, 211, 153, 0.09), transparent 50%),
+        linear-gradient(var(--map-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--map-grid) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+    .leaflet-container {
+      background: var(--map-paper);
+      font-family: var(--font-body);
+    }
+    .leaflet-control-zoom a {
+      background: var(--surface-container-high) !important;
+      color: var(--on-surface) !important;
+      border-color: var(--outline-variant) !important;
+    }
+    .leaflet-control-zoom a:hover {
+      background: var(--primary) !important;
+      color: #ffffff !important;
+    }
+    .leaflet-control-attribution {
+      background: rgba(11, 8, 18, 0.78) !important;
+      color: var(--on-surface-variant) !important;
+      font-size: 0.68rem !important;
+    }
+
+    .compass-overlay {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 400;
+      background: rgba(23, 17, 38, 0.9);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      border-radius: var(--rounded-full);
+      width: 46px;
+      height: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--primary-hover);
+      box-shadow: var(--soft-shadow);
+      pointer-events: none;
+    }
+
+    .scale-overlay {
+      position: absolute;
+      bottom: 26px;
+      right: 12px;
+      z-index: 400;
+      background: rgba(23, 17, 38, 0.9);
+      border: 1px solid rgba(192, 132, 252, 0.28);
+      border-radius: var(--rounded);
+      padding: 0.28rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--on-primary-container);
+      box-shadow: var(--soft-shadow);
+      pointer-events: none;
+    }
+
+    /* Custom Leaflet Markers */
+    .viseu-marker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--rounded-full);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #ffffff;
+      border: 2.5px solid #0b0812;
+      box-shadow: 0 3px 12px var(--map-shadow);
+      transition: transform var(--dur-micro) var(--ease-spring), opacity var(--dur-micro);
+    }
+    .viseu-marker.cat-partida { background: linear-gradient(135deg, #ec4899, #a855f7); }
+    .viseu-marker.cat-natureza { background: linear-gradient(135deg, #10b981, #059669); }
+    .viseu-marker.cat-patrimonio { background: linear-gradient(135deg, #818cf8, #9333ea); }
+    .viseu-marker.is-completed {
+      background: #102a27;
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+    .viseu-marker.is-dimmed {
+      opacity: 0.45;
+      transform: scale(0.88);
+    }
+    .viseu-marker.is-selected {
+      opacity: 1;
+      transform: scale(1.25);
+      border-color: #ffffff;
+      box-shadow: 0 0 0 6px var(--map-ring-primary), 0 6px 16px var(--map-shadow);
+    }
+
+    .zone-label-icon {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: rgba(233, 213, 255, 0.78);
+      white-space: nowrap;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+      pointer-events: none;
+    }
+
+    /* Leaflet Popup */
+    .leaflet-popup-content-wrapper {
+      background: var(--surface-card);
+      color: var(--on-surface);
+      border-radius: var(--rounded-lg);
+      padding: 0;
+      box-shadow: var(--soft-shadow-raised);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      overflow: hidden;
+    }
+    .leaflet-popup-tip {
+      background: var(--surface-card);
+    }
+    .leaflet-popup-content {
+      margin: 0;
+      width: 270px !important;
+    }
+    .leaflet-popup-close-button {
+      color: #ffffff !important;
+      font-size: 18px !important;
+      padding: 6px !important;
+    }
+    .popup-header {
+      padding: 0.8rem 0.95rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6366f1, #9333ea);
+    }
+    .popup-header.cat-partida { background: linear-gradient(135deg, #ec4899, #a855f7); }
+    .popup-header.cat-natureza { background: linear-gradient(135deg, #10b981, #059669); }
+    .popup-body {
+      padding: 0.85rem 0.95rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .legend-dash {
+      width: 18px;
+      border-top: 2.5px dashed var(--secondary);
+    }
+
+    /* Empty State */
+    .empty-state {
+      background: var(--surface-container-low);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: var(--backdrop);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+    }
+    .modal-backdrop.is-hidden { display: none; }
+
+    .modal-dialog {
+      background: var(--surface-container-low);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--soft-shadow-raised), var(--purple-glow);
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-dialog.is-narrow { max-width: 590px; }
+
+    .modal-header {
+      background: var(--surface-container);
+      border-bottom: var(--warm-hairline);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .modal-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.18;
+      color: var(--on-surface);
+    }
+    .modal-body {
+      padding: var(--space-lg);
+      overflow-y: auto;
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .modal-footer {
+      background: var(--surface-container);
+      border-top: var(--warm-hairline);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      background: var(--background);
+      padding: var(--space-xs);
+      border-radius: var(--rounded-full);
+      border: var(--warm-hairline);
+    }
+    .tab-btn {
+      flex: 1;
+      min-height: 40px;
+      padding: 0.4rem 0.85rem;
+      border: 0;
+      border-radius: var(--rounded-full);
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all var(--dur-micro);
+    }
+    .tab-btn.is-active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(168, 85, 247, 0.35);
+    }
+
+    /* Detail Checklist */
+    .detail-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+      transition: all var(--dur-micro);
+    }
+    .detail-item:hover {
+      border-color: var(--outline);
+    }
+    .detail-item.is-checked {
+      background: var(--tertiary-container);
+      border-color: var(--tertiary-border);
+      color: var(--on-tertiary-container);
+    }
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      border: 2px solid var(--outline);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      background: var(--background);
+    }
+    .detail-item.is-checked .check-box {
+      background: var(--tertiary);
+      border-color: var(--tertiary);
+      color: #06211c;
+    }
+
+    /* Sketchpad */
+    .sketch-wrap {
+      background: var(--surface-card);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .sketch-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .sketch-canvas {
+      width: 100%;
+      height: 230px;
+      border-radius: var(--rounded);
+      border: 1px dashed rgba(192, 132, 252, 0.45);
+      background: #0c0816;
+      touch-action: none;
+      cursor: crosshair;
+      display: block;
+    }
+
+    .swatch-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--surface-card);
+      box-shadow: 0 0 0 1px var(--outline);
+      cursor: pointer;
+      transition: transform var(--dur-micro);
+    }
+    .swatch-btn.is-active {
+      box-shadow: 0 0 0 2px #ffffff;
+      transform: scale(1.14);
+    }
+    .swatch-moon { background: #f5efff; }
+    .swatch-purple { background: #c084fc; }
+    .swatch-pink { background: #f472b6; }
+    .swatch-mint { background: #34d399; }
+    .swatch-gold { background: #fbbf24; }
+
+    /* Photo preview */
+    .photo-box {
+      background: var(--surface-card);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .photo-preview {
+      max-width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: var(--rounded);
+      border: var(--warm-hairline);
+    }
+
+    /* Medals Grid */
+    .medals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .medal-card {
+      background: var(--surface-card);
+      border: var(--warm-hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .medal-card.is-unlocked {
+      background: linear-gradient(145deg, rgba(16, 42, 39, 0.85), rgba(35, 21, 61, 0.9));
+      border-color: var(--tertiary-border);
+    }
+
+    /* Celebration Banner + Confetti */
+    .celebration-box {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(155deg, rgba(64, 29, 112, 0.95), rgba(24, 14, 46, 0.98));
+      border: 1px solid rgba(244, 114, 182, 0.45);
+      border-radius: var(--rounded-arch);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      top: -12px;
+      animation: confettiFall 2.1s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(340px) rotate(520deg); opacity: 0; }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      z-index: 1400;
+      background: linear-gradient(135deg, #2b1a4d, #1c1233);
+      color: #ffffff;
+      border: 1px solid rgba(192, 132, 252, 0.5);
+      padding: 0.72rem 1.2rem;
+      border-radius: var(--rounded-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--soft-shadow-raised);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-spring);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--warm-hairline);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+    .site-footer strong { color: var(--on-primary-container); }
+
+    @container (max-width: 390px) {
+      .stop-head {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .spotlight-stats { grid-template-columns: 1fr; }
+      .mobile-switcher { display: flex; }
+      .workspace { grid-template-columns: 1fr; }
+      .map-column { position: static; }
+      .workspace.mode-split {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      .workspace.mode-split #map { height: 360px; min-height: 310px; }
+      .workspace.mode-list .map-column { display: none; }
+      .workspace.mode-map .list-column { display: none; }
+      .workspace.mode-map #map { height: 70vh; min-height: 440px; }
+    }
+
+    @media (max-width: 640px) {
+      .app-shell { padding: var(--space-sm) var(--space-sm) var(--space-xl); }
+      .masthead { padding: var(--space-md); }
+      .mode-banner { padding: var(--space-md); }
+      .metrics-grid { grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+      .modal-body, .modal-header, .modal-footer { padding: var(--space-md); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media print {
+      body { background: #ffffff !important; color: #111111 !important; }
+      .masthead, .stop-card, .arch-card {
+        background: #ffffff !important;
+        color: #111111 !important;
+        border: 1px solid #d1d5db !important;
+        box-shadow: none !important;
+      }
+      .stop-desc, .stop-meta, .hero-lede { color: #374151 !important; }
+      .nav-actions, .nudge-actions, .mobile-switcher, .mode-banner, .individual-spotlight,
+      .panel, .map-column, .stop-actions, .modal-backdrop, .toast { display: none !important; }
+      .workspace { display: block; }
+      .stop-card { break-inside: avoid; margin-bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- MASTHEAD & CADERNO HEADER -->
+    <header class="masthead">
+      <div class="masthead-top">
+        <div class="kicker">💜 Diário de Caminhadas · Viseu · Feito para a Letícia Gomez</div>
+        <div class="nav-actions">
+          <div id="levelPill" class="level-pill" aria-live="polite">
+            <span id="levelLabel">Nv. 1 · Primeiros Passinhos 👟</span>
+            <span id="levelCount" class="level-pill-count">0/12</span>
+          </div>
+          <button id="openAwardsBtn" type="button" class="btn btn-secondary btn-sm">🏆 Prémios &amp; Medalhas</button>
+          <button id="openMapsGuideBtn" type="button" class="btn btn-secondary btn-sm">📍 Guia Google Maps</button>
+          <button id="openDiaryBtn" type="button" class="btn btn-primary btn-sm">📓 Diário &amp; PDF</button>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <h1 class="title">Passeio por <em>Viseu</em> ✨</h1>
+          <p class="hero-lede">
+            Doze cantinhos bonitos entre jardins secretos, azulejos, arte urbana e praças de granito. Podes fazer o roteiro completo passo a passo ou escolher <strong>apenas um destino de cada vez</strong> a sair diretamente do Bairro 1º de Maio — sem pressas e ao teu ritmo!
+          </p>
+          <div class="hero-tags">
+            <span class="soft-tag">🏠 Partida: Bairro 1º de Maio</span>
+            <span class="soft-tag">🎯 12 saídas individuais ou rota completa</span>
+            <span class="soft-tag">🏅 12 medalhas &amp; mimos merecidos</span>
+          </div>
+        </div>
+
+        <div class="nudge-card">
+          <div class="nudge-kicker">✨ Lembrete fofo para hoje</div>
+          <p id="nudgeQuote" class="nudge-quote">«Só 15 minutos lá fora já contam como vitória gigante!»</p>
+          <div class="nudge-actions">
+            <button id="nextNudgeBtn" type="button" class="btn btn-secondary btn-sm">Outro incentivo 💜</button>
+            <button id="surpriseStopBtn" type="button" class="btn btn-pink btn-sm">Desafio surpresa 🎲</button>
+            <button id="closestWalkBtn" type="button" class="btn btn-ghost btn-sm">Passeio curtinho 🌱</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROMINENT ROUTE MODE SWITCHER -->
+    <section class="mode-banner" aria-label="Escolher modo de percurso">
+      <div class="mode-banner-copy">
+        <div class="mode-banner-title">Como queres passear hoje, Letícia? 🦋</div>
+        <div id="modeBannerSub" class="mode-banner-sub">Alterna entre a volta completa pela cidade ou saídas individuais do Bairro 1º de Maio para 1 destino.</div>
+      </div>
+      <div class="segmented-mode" role="tablist" aria-label="Modo do percurso">
+        <button id="modeBtnIndividual" type="button" class="segmented-btn is-active" data-trip-mode="individual" role="tab" aria-selected="true">
+          🎯 Saídas do Bairro (1 destino)
+        </button>
+        <button id="modeBtnCompleto" type="button" class="segmented-btn" data-trip-mode="sequencial" role="tab" aria-selected="false">
+          🗺️ Roteiro Completo (12 paragens)
+        </button>
+      </div>
+    </section>
+
+    <div class="ornament-rule" aria-hidden="true">✦ Itinerário &amp; Conquistas ✦</div>
+
+    <!-- ARCH METRIC CARDS -->
+    <section class="metrics-grid" aria-label="Resumo do percurso e progresso">
+      <div class="arch-card">
+        <div id="metricStopsLabel" class="arch-label">Passeio Escolhido</div>
+        <div id="metricStops" class="arch-value">#01</div>
+        <div id="metricStopsSub" class="arch-sub">Bairro → Jardim das Mães</div>
+      </div>
+
+      <div class="arch-card">
+        <div id="metricDistLabel" class="arch-label">Distância Pedonal</div>
+        <div id="metricDistance" class="arch-value">— km</div>
+        <div id="metricDistSub" class="arch-sub">Ida e volta ao bairro</div>
+      </div>
+
+      <div class="arch-card">
+        <div id="metricTimeLabel" class="arch-label">Tempo Estimado</div>
+        <div id="metricTime" class="arch-value">— min</div>
+        <div id="metricTimeSub" class="arch-sub">Ritmo suave ~4,5 km/h</div>
+      </div>
+
+      <div class="arch-card is-featured">
+        <div class="arch-label">Caderno da Letícia 💜</div>
+        <div id="metricChallenges" class="arch-value">0/12</div>
+        <div id="metricAwardsSub" class="arch-sub">0 medalhas · 0 mimos</div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE VIEW SWITCHER -->
+    <nav class="mobile-switcher" aria-label="Modo de visualização em ecrã pequeno">
+      <button type="button" class="mobile-mode-btn is-active" data-mobile-mode="split">Dividido</button>
+      <button type="button" class="mobile-mode-btn" data-mobile-mode="list">Itinerário</button>
+      <button type="button" class="mobile-mode-btn" data-mobile-mode="map">Mapa</button>
+    </nav>
+
+    <!-- MAIN WORKSPACE -->
+    <main id="workspace" class="workspace mode-split">
+      <!-- LEFT COLUMN: SPOTLIGHT / FILTERS / STOP LIST -->
+      <section class="list-column" aria-label="Filtros e paragens do passeio">
+
+        <!-- INDIVIDUAL MODE SPOTLIGHT -->
+        <div id="individualSpotlight" class="individual-spotlight">
+          <div class="spotlight-header">
+            <div>
+              <div class="kicker">🎯 Modo Saída Individual · Bairro 1º de Maio</div>
+              <h2 id="spotlightTitle" class="spotlight-route-title">Bairro 1º de Maio → Jardim das Mães</h2>
+            </div>
+            <span id="spotlightEffortBadge" class="badge badge-nature">🌱 Passeio curtinho</span>
+          </div>
+
+          <div class="spotlight-stats">
+            <div class="mini-stat">
+              <span class="mini-stat-label">Só ida (do Bairro)</span>
+              <span id="spotlightOneWay" class="mini-stat-val">—</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-stat-label">Ida e volta ao Bairro</span>
+              <span id="spotlightRoundTrip" class="mini-stat-val">—</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-stat-label">Medalha do destino</span>
+              <span id="spotlightMedal" class="mini-stat-val">—</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Escolhe rapidamente o destino de hoje (ordenado por número)</span>
+            <div id="quickDestStrip" class="quick-dest-strip"></div>
+          </div>
+
+          <div class="stop-actions">
+            <a id="spotlightGmapsLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-pink btn-sm">🗺️ Abrir rota no Google Maps</a>
+            <button id="spotlightOpenCadernoBtn" type="button" class="btn btn-primary btn-sm">📓 Abrir Caderno deste local</button>
+            <button id="spotlightCopyCoordsBtn" type="button" class="btn btn-secondary btn-sm">📋 Copiar coordenadas</button>
+          </div>
+        </div>
+
+        <!-- FILTERS PANEL -->
+        <div class="panel">
+          <div class="field-group">
+            <label class="field-label" for="searchInput">Pesquisar paragem, jardim, azulejos, medalha ou rua</label>
+            <input id="searchInput" type="search" class="text-input" placeholder="Ex.: Rossio, pavões, azulejos, Santa Cristina…" />
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Tipo de Destinos</span>
+            <div class="chip-row" role="group" aria-label="Filtrar roteiro geográfico">
+              <button type="button" class="chip-btn is-active" data-route-filter="completo">
+                <span class="dot dot-mixed" aria-hidden="true"></span> Todos (12)
+              </button>
+              <button type="button" class="chip-btn" data-route-filter="natureza">
+                <span class="dot dot-nature" aria-hidden="true"></span> Natureza (Visit Viseu)
+              </button>
+              <button type="button" class="chip-btn" data-route-filter="patrimonio">
+                <span class="dot dot-heritage" aria-hidden="true"></span> Património &amp; Arte
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Estado &amp; Categorias do Caderno</span>
+            <div class="chip-row" role="group" aria-label="Filtrar por estado">
+              <button type="button" class="chip-btn is-active" data-status-filter="todos">Todos</button>
+              <button type="button" class="chip-btn" data-status-filter="por-fazer">Por fazer</button>
+              <button type="button" class="chip-btn" data-status-filter="concluidos">Concluídos ✨</button>
+              <button type="button" class="chip-btn" data-status-filter="com-registo">Com registo</button>
+            </div>
+            <div class="chip-row" role="group" aria-label="Filtrar por categoria temática">
+              <button type="button" class="chip-btn is-active" data-cat-filter="todas">Todas</button>
+              <button type="button" class="chip-btn" data-cat-filter="Património · Séc. XVI–XVII">Séc. XVI–XVII</button>
+              <button type="button" class="chip-btn" data-cat-filter="Barroco & Séc. XVIII">Barroco &amp; Séc. XVIII</button>
+              <button type="button" class="chip-btn" data-cat-filter="Séc. XIX–XX & Arte Urbana">Séc. XIX–XX &amp; Arte Urbana</button>
+              <button type="button" class="chip-btn" data-cat-filter="Parques & Natureza">Parques &amp; Natureza</button>
+            </div>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <div id="returnToggleTitle" class="toggle-info-title">Incluir regresso ao Bairro 1º de Maio (ida e volta)</div>
+              <div id="returnSub" class="toggle-info-sub">Linha tracejada rosa de retorno incluída nos cálculos</div>
+            </div>
+            <button id="returnToggle" type="button" class="switch-btn" role="switch" aria-checked="true" aria-label="Ativar regresso ao Bairro 1º de Maio">
+              <span class="switch-knob"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="info-callout">
+          <strong>💜 Dica de horários:</strong> Os parques, jardins e praças têm acesso livre todos os dias. A <strong>Câmara Municipal</strong>, a <strong>Igreja de São Francisco</strong> e a <strong>Casa do Miradouro</strong> têm horários próprios para visita interior.
+        </div>
+
+        <div id="itineraryList" class="itinerary-list" aria-live="polite"></div>
+      </section>
+
+      <!-- RIGHT COLUMN: VECTOR SCHEMATIC LEAFLET MAP -->
+      <aside class="map-column" aria-label="Mapa esquemático interativo de Viseu">
+        <div class="map-card">
+          <div class="map-topbar">
+            <div>
+              <div class="kicker">🗺️ Cartografia Interativa · Coordenadas Reais</div>
+              <div id="mapRouteSummary" class="stop-meta">Saída individual a partir do Bairro 1º de Maio</div>
+            </div>
+            <div class="stop-actions">
+              <button id="toggleRaysBtn" type="button" class="btn btn-secondary btn-sm">Raios: Ativos</button>
+              <button id="toggleZonesBtn" type="button" class="btn btn-secondary btn-sm">Zonas: Ativas</button>
+              <button id="fitMapBtn" type="button" class="btn btn-primary btn-sm">Centrar Rota</button>
+            </div>
+          </div>
+
+          <div class="map-wrap">
+            <div id="map"></div>
+            <div class="compass-overlay" aria-hidden="true">
+              <span>N</span>
+              <span>↑</span>
+            </div>
+            <div id="mapScaleLabel" class="scale-overlay">Escala real · Bairro 1º de Maio → Destinos</div>
+          </div>
+
+          <div class="map-legend">
+            <span class="legend-item"><span class="dot dot-start" aria-hidden="true"></span> Bairro (Origem)</span>
+            <span class="legend-item"><span class="dot dot-nature" aria-hidden="true"></span> Natureza</span>
+            <span class="legend-item"><span class="dot dot-heritage" aria-hidden="true"></span> Património &amp; Arte</span>
+            <span class="legend-item">✓ Concluído</span>
+            <span id="legendReturn" class="legend-item"><span class="legend-dash" aria-hidden="true"></span> Regresso</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div>
+        <strong>Fontes &amp; Inspiração:</strong> Roteiro a pé por Viseu (Center of Portugal) · Jardins &amp; Parques de Viseu (Visit Viseu) · Ponto de partida no Bairro 1º de Maio.
+      </div>
+      <div>
+        Feito com muito carinho para a <strong>Letícia Gomez</strong> 💜 — todo o progresso, esboços, sensações e notas ficam guardados automaticamente neste navegador. Distâncias calculadas pela fórmula de Haversine com fator pedonal urbano (1,25×) a ~4,5 km/h.
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL 1: CADERNO DA PARAGEM -->
+  <div id="stopModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="stopModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <div id="stopModalKicker" class="kicker">01 · Categoria</div>
+          <h2 id="stopModalTitle" class="modal-title">Nome da Paragem</h2>
+        </div>
+        <div class="stop-actions">
+          <button id="prevStopBtn" type="button" class="btn btn-ghost btn-sm">← Anterior</button>
+          <button id="nextStopBtn" type="button" class="btn btn-ghost btn-sm">Seguinte →</button>
+          <button id="closeStopModalBtn" type="button" class="btn btn-secondary btn-sm" aria-label="Fechar janela">Fechar ×</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="tab-bar" role="tablist" aria-label="Secções do desafio da paragem">
+          <button type="button" class="tab-btn is-active" data-stop-tab="sobre" role="tab" aria-selected="true">✨ Sobre o local</button>
+          <button type="button" class="tab-btn" data-stop-tab="desafio" role="tab" aria-selected="false">🎯 Desafio &amp; Detalhes</button>
+          <button type="button" class="tab-btn" data-stop-tab="registo" role="tab" aria-selected="false">🎨 Meu Registo</button>
+        </div>
+
+        <!-- TAB 1: SOBRE -->
+        <div id="tabPanelSobre" class="list-column">
+          <div class="badge-row" id="modalMetaBadges"></div>
+          <p id="modalDescription" class="stop-desc"></p>
+
+          <div class="panel">
+            <div class="field-group">
+              <span class="field-label">🚶 Saída direta do Bairro 1º de Maio</span>
+              <div id="modalFromBairroInfo" class="toggle-info-title"></div>
+              <div class="stop-actions" style="padding-top:0.25rem;">
+                <button id="modalTraceIndividualBtn" type="button" class="btn btn-primary btn-sm">🎯 Ver percurso do Bairro no mapa</button>
+                <a id="modalGmapsWalkBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-pink btn-sm">🗺️ Ir a pé no Google Maps</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="field-group">
+              <span class="field-label">Morada, Horário &amp; Coordenadas GPS</span>
+              <div id="modalAddress" class="toggle-info-title"></div>
+              <div id="modalSchedule" class="stop-meta"></div>
+              <div class="stop-actions">
+                <code id="modalCoordsText" class="segment-pill"></code>
+                <button id="copyCoordsBtn" type="button" class="btn btn-secondary btn-sm">📋 Copiar coordenadas</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="nudge-card">
+            <div class="nudge-kicker" id="modalMedalStatus">🔒 Medalha a desbloquear</div>
+            <div class="stop-title" id="modalMedalName"></div>
+            <div class="stop-meta" id="modalRewardText"></div>
+          </div>
+        </div>
+
+        <!-- TAB 2: DESAFIO & 4 DETALHES -->
+        <div id="tabPanelDesafio" class="list-column" style="display:none;">
+          <div class="nudge-card">
+            <div class="nudge-kicker">✨ Mini-Desafio da Letícia</div>
+            <p id="modalChallengePrompt" class="nudge-quote"></p>
+          </div>
+          <div class="field-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="field-label">4 Detalhes para Descobrir no Local</span>
+              <span id="modalDetailsCount" class="badge badge-nature">0/4 descobertos</span>
+            </div>
+            <div id="modalDetailsList" class="detail-list"></div>
+          </div>
+        </div>
+
+        <!-- TAB 3: MEU REGISTO -->
+        <div id="tabPanelRegisto" class="list-column" style="display:none;">
+          <div class="photo-box">
+            <label class="field-label" for="photoInput">1. Fotografia do Passeio (sessão atual)</label>
+            <span class="stop-meta">Redimensionada automaticamente (~900 px) no navegador. Guarda a tua recordação favorita deste cantinho!</span>
+            <input id="photoInput" type="file" accept="image/*" class="text-input" />
+            <div id="photoPreviewWrap" style="display:none; gap:0.5rem;">
+              <img id="photoPreviewImg" class="photo-preview" alt="Pré-visualização da fotografia do passeio" />
+              <div class="stop-actions">
+                <span id="photoMetaLabel" class="stop-meta"></span>
+                <button id="removePhotoBtn" type="button" class="btn btn-ghost btn-sm">Remover foto</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="field-label">2. Sensações &amp; Vibes do Passeio</span>
+              <span id="sensationsCount" class="badge badge-lavender">0 selecionadas</span>
+            </div>
+            <div id="sensationsGrid" class="chip-row"></div>
+          </div>
+
+          <div class="sketch-wrap">
+            <div class="sketch-toolbar">
+              <div>
+                <div class="field-label">3. Bloco de Esboço Luminoso 🎨</div>
+                <span class="stop-meta">Desenha com o dedo ou rato uma flor, azulejo, pavão ou nuvem!</span>
+              </div>
+              <div class="stop-actions">
+                <button type="button" class="swatch-btn swatch-moon is-active" data-ink-color="moon" aria-label="Tinta branco lua"></button>
+                <button type="button" class="swatch-btn swatch-purple" data-ink-color="purple" aria-label="Tinta roxo lavanda"></button>
+                <button type="button" class="swatch-btn swatch-pink" data-ink-color="pink" aria-label="Tinta rosa orquídea"></button>
+                <button type="button" class="swatch-btn swatch-mint" data-ink-color="mint" aria-label="Tinta menta"></button>
+                <button type="button" class="swatch-btn swatch-gold" data-ink-color="gold" aria-label="Tinta dourado"></button>
+              </div>
+            </div>
+            <canvas id="sketchCanvas" class="sketch-canvas"></canvas>
+            <div class="sketch-toolbar">
+              <div class="stop-actions">
+                <button id="strokeThinBtn" type="button" class="chip-btn is-active">Fino</button>
+                <button id="strokeThickBtn" type="button" class="chip-btn">Grosso</button>
+              </div>
+              <div class="stop-actions">
+                <button id="undoSketchBtn" type="button" class="btn btn-ghost btn-sm">Desfazer</button>
+                <button id="clearSketchBtn" type="button" class="btn btn-ghost btn-sm">Limpar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="field-group">
+              <label class="field-label" for="notesTextarea">4. Notas Pessoais (guarda automaticamente)</label>
+              <textarea id="notesTextarea" rows="3" class="textarea-input" placeholder="Escreve o que viste, sentiste ou uma pequena memória boa deste lugar…"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span id="modalCompletionHint" class="stop-meta">Marca o desafio quando visitares esta paragem.</span>
+        <button id="completeChallengeBtn" type="button" class="btn btn-emerald">Concluir desafio ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: CELEBRAÇÃO -->
+  <div id="celebrationModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="celebrationTitle">
+    <div class="modal-dialog is-narrow">
+      <div class="modal-body">
+        <div id="celebrationBox" class="celebration-box">
+          <div class="kicker" style="justify-content:center;">💜 Desafio Concluído · Medalha Desbloqueada</div>
+          <h2 id="celebrationTitle" class="title" style="font-size:2.2rem;">Arrasaste, <em>Letícia!</em> 🎉</h2>
+          <div id="celebrationMedalName" class="modal-title"></div>
+          <p id="celebrationReward" class="hero-lede" style="margin:0 auto;"></p>
+          <div class="nudge-actions" style="justify-content:center; padding-top:0.5rem;">
+            <button id="celebrationAwardsBtn" type="button" class="btn btn-secondary">🏆 Ver Prémios &amp; Medalhas</button>
+            <button id="celebrationContinueBtn" type="button" class="btn btn-pink">Continuar passeio ✨</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: PRÉMIOS & MEDALHAS -->
+  <div id="awardsModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="awardsModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <div class="kicker">Conquistas &amp; Recompensas · Letícia Gomez</div>
+          <h2 id="awardsModalTitle" class="modal-title">🏆 Prémios &amp; Medalhas</h2>
+        </div>
+        <button id="closeAwardsModalBtn" type="button" class="btn btn-secondary btn-sm">Fechar ×</button>
+      </div>
+      <div class="modal-body">
+        <div class="nudge-card">
+          <div class="nudge-kicker">✨ Nível Atual</div>
+          <div id="awardsLevelTitle" class="modal-title">Nv. 1 · Primeiros Passinhos 👟</div>
+          <div id="awardsLevelSub" class="stop-meta">0/12 desafios concluídos · 0/12 prémios aproveitados</div>
+        </div>
+
+        <div class="field-group">
+          <span class="field-label">Coleção de 12 Medalhas &amp; Pequenos Mimos Merecidos</span>
+          <div id="awardsGrid" class="medals-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: GUIA GOOGLE MAPS (INDIVIDUAIS + ETAPAS) -->
+  <div id="mapsGuideModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="mapsGuideTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <div class="kicker">Navegação Pedonal · Origem no Bairro 1º de Maio</div>
+          <h2 id="mapsGuideTitle" class="modal-title">📍 Guia de Rotas Google Maps</h2>
+        </div>
+        <button id="closeMapsGuideBtn" type="button" class="btn btn-secondary btn-sm">Fechar ×</button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-bar" role="tablist" aria-label="Tipo de guia Google Maps">
+          <button type="button" class="tab-btn is-active" data-maps-tab="individuais" role="tab" aria-selected="true">🎯 12 Saídas do Bairro</button>
+          <button type="button" class="tab-btn" data-maps-tab="etapas" role="tab" aria-selected="false">🗺️ Roteiro Completo (Etapas)</button>
+        </div>
+
+        <div id="mapsTabIndividuais" class="list-column">
+          <p class="stop-desc">
+            Escolhe qualquer um dos 12 destinos abaixo para abrir diretamente o caminho a pé desde o <strong>Bairro 1º de Maio</strong> no Google Maps ou copiar as coordenadas.
+          </p>
+          <div id="mapsIndividualList" class="list-column"></div>
+        </div>
+
+        <div id="mapsTabEtapas" class="list-column" style="display:none;">
+          <p class="stop-desc">
+            Como o Google Maps aceita no máximo 9 pontos intermédios por rota, o roteiro completo organiza-se em etapas contínuas a partir do <strong>Bairro 1º de Maio</strong>.
+          </p>
+          <div id="mapsStagesList" class="list-column"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: DIÁRIO, EXPORTAÇÃO (.TXT / PDF) & REINICIAR -->
+  <div id="diaryModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="diaryModalTitle">
+    <div class="modal-dialog is-narrow">
+      <div class="modal-header">
+        <div>
+          <div class="kicker">Caderno Pessoal · Letícia Gomez</div>
+          <h2 id="diaryModalTitle" class="modal-title">📓 Diário &amp; Exportação</h2>
+        </div>
+        <button id="closeDiaryModalBtn" type="button" class="btn btn-secondary btn-sm">Fechar ×</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label" for="diaryTitleInput">Título ou data do passeio (opcional)</label>
+          <input id="diaryTitleInput" type="text" class="text-input" placeholder="Ex.: Tarde tranquila em Viseu · Sábado" />
+        </div>
+
+        <div id="diarySummaryBox" class="panel"></div>
+
+        <div class="stop-actions">
+          <button id="printPdfBtn" type="button" class="btn btn-secondary">🖨️ Imprimir / Guardar PDF</button>
+          <button id="exportTxtBtn" type="button" class="btn btn-primary">💾 Exportar texto (.txt)</button>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-info-title">Reiniciar caderno</div>
+            <div class="toggle-info-sub">Limpa desafios concluídos, detalhes, notas e esboços.</div>
+          </div>
+          <button id="resetNotebookBtn" type="button" class="btn btn-danger btn-sm">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <api-shim></api-shim>
+  <script>
+    (function () {
+      'use strict';
+
+      var STORAGE_KEY = 'passeio_viseu_leticia_purple_v2';
+      var PEDESTRIAN_FACTOR = 1.25;
+      var WALKING_SPEED_KMH = 4.5;
+      var MAX_GMAPS_WAYPOINTS = 9;
+
+      var NUDGES = [
+        'Só 15 minutos lá fora já contam como vitória gigante! 💜',
+        'Hoje não precisas de correr a cidade toda — escolher 1 destino pertinho do bairro já faz toda a diferença.',
+        'Põe os teus fones, leva água e vai só espreitar um jardim ou beber um café ao sol. ✨',
+        'Cada passinho fora de casa é um mimo para a tua mente. Vai ao teu ritmo, sem pressas! 🦋',
+        'Se estiveres na dúvida, carrega em "Passeio curtinho 🌱" e deixamos o destino mais próximo escolher por ti.',
+        'Repara numa flor, num azulejo bonito ou num pássaro — Viseu tem surpresas em cada esquina! 🌸'
+      ];
+
+      var SENSATION_OPTIONS = [
+        '☀️ Sol ameno', '🍃 Brisa fresca', '🪨 Granito antigo', '🔷 Azulejos',
+        '🐦 Canto de pássaros', '🌸 Cheiro a flores', '🎨 Arte de rua',
+        '🌳 Sombra tranquila', '💜 Momento de paz', '☕ Pausa para café'
+      ];
+
+      var START_HUB = {
+        id: 0,
+        code: '00',
+        nome: 'Bairro 1º de Maio',
+        categoriaMapa: 'partida',
+        categoriaCaderno: 'Origem & Regresso',
+        epoca: 'Ponto de Partida',
+        fonte: 'Casa / Início',
+        coords: [40.6609, -7.9202],
+        morada: 'Bairro 1º de Maio, Viseu',
+        horario: 'Acesso livre 24h · Origem de todos os passeios',
+        descricao: 'O teu ponto de partida em Viseu. Daqui podes sair para apenas um destino pertinho (10 a 25 min a pé) ou aventurar-te no roteiro completo pelas 12 paragens!',
+        destaque: 'Origem das 12 saídas individuais e do roteiro circular'
+      };
+
+      var CHALLENGES = [
+        {
+          id: 1,
+          code: '01',
+          nome: 'Jardim das Mães',
+          categoriaMapa: 'natureza',
+          categoriaCaderno: 'Parques & Natureza',
+          epoca: 'Natureza & Escultura',
+          fonte: 'Visit Viseu',
+          coords: [40.65817, -7.91360],
+          morada: 'Largo Major Teles 6, Viseu',
+          horario: 'Acesso livre · Jardim público',
+          descricao: 'Jardim tranquilo onde as rosas — símbolo do amor — completam a serenidade transmitida pela escultura em bronze de um menino a dormir no colo da mãe.',
+          destaque: 'Roseiral e escultura materna em bronze',
+          medalha: 'Pétalas de Paz',
+          premio: 'Cinco minutos num banco ao sol só a respirar fundo e ouvir as folhas.',
+          miniDesafio: 'Encontra o roseiral e observa a expressão terna da escultura em bronze no centro do jardim.',
+          detalhes: [
+            'A escultura em bronze da mãe com o menino adormecido ao colo',
+            'Os canteiros de roseiras ao redor do passeio central',
+            'As árvores de grande porte que dão sombra ao Largo Major Teles',
+            'Os bancos de jardim virados para o coração do largo'
+          ]
+        },
+        {
+          id: 2,
+          code: '02',
+          nome: 'Praça do Rossio (Praça da República)',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Séc. XIX–XX & Arte Urbana',
+          epoca: 'Séc. XVI–XX · Coração da cidade',
+          fonte: 'Center of Portugal',
+          coords: [40.65740, -7.91420],
+          morada: 'Praça da República, Viseu',
+          horario: 'Acesso livre 24h · Ideal para pausa de café',
+          descricao: 'O coração da cidade desde o século XVI. Ponto de encontro entre esplanadas, sombra fresca das tílias e o famoso painel de azulejos desenhado por Joaquim Lopes em 1931.',
+          destaque: 'Painel de azulejos de 1931 e esplanadas',
+          medalha: 'Coração da Cidade',
+          premio: 'Um café, chá ou pastel de nata numa das esplanadas do Rossio.',
+          miniDesafio: 'Descobre o grande painel de azulejos azuis e brancos desenhado por Joaquim Lopes em 1931.',
+          detalhes: [
+            'O painel de azulejos de 1931 com cenas tradicionais da Beira',
+            'As tílias alinhadas ao longo da praça',
+            'O desenho da calçada portuguesa no largo central',
+            'A perspetiva aberta para a fachada dos Paços do Município'
+          ]
+        },
+        {
+          id: 3,
+          code: '03',
+          nome: 'Paços do Município de Viseu',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Séc. XIX–XX & Arte Urbana',
+          epoca: '1887 · Séc. XIX',
+          fonte: 'Center of Portugal',
+          coords: [40.65760, -7.91380],
+          morada: 'Praça da República 10, Viseu',
+          horario: 'Exterior livre 24h · Interior em dias úteis (horário específico)',
+          descricao: 'Construído em 1887 no Rossio, destaca-se pelas linhas sóbrias de granito e branco. No interior guarda o lustre de ferro forjado de Arnaldo Malho, a talha de António Loureiro e tetos pintados por José de Almeida e Silva.',
+          destaque: 'Arquitetura oitocentista de granito e branco',
+          medalha: 'Olhar de Granito',
+          premio: 'Guardar uma fotografia simétrica da fachada como recordação arquitetónica.',
+          miniDesafio: 'Conta as janelas da fachada principal e repara no contraste entre o granito lavrado e a cal branca.',
+          detalhes: [
+            'O frontão triangular com o brasão da cidade de Viseu',
+            'As varandas de ferro forjado no andar nobre',
+            'A cantaria de granito nos arcos do piso térreo',
+            'A data e inscrições históricas junto à entrada'
+          ]
+        },
+        {
+          id: 4,
+          code: '04',
+          nome: 'Igreja da Ordem Terceira de São Francisco',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Barroco & Séc. XVIII',
+          epoca: 'Séc. XVIII · Barroco/Rococó',
+          fonte: 'Center of Portugal',
+          coords: [40.65650, -7.91420],
+          morada: 'Av. Alberto Sampaio, Viseu',
+          horario: 'Exterior livre · Visita interior sujeita a horário de abertura/culto',
+          descricao: 'Na extremidade do Parque Aquilino Ribeiro, ergue-se a fachada alvíssima emoldurada a granito escuro de estética barroca. No interior brilham retábulos rococó, azulejos da vida de São Francisco e um órgão do século XVIII.',
+          destaque: 'Fachada barroca e órgão do século XVIII',
+          medalha: 'Curvas Barrocas',
+          premio: 'Um momento de silêncio contemplativo antes de entrares nas árvores do parque ao lado.',
+          miniDesafio: 'Observa as curvas e contracurvas da portada e do frontão em granito escuro sobre a parede branca.',
+          detalhes: [
+            'O recorte sinuoso do frontão barroco no topo da fachada',
+            'Os pináculos laterais em granito esculpido',
+            'O nicho central acima do portal principal',
+            'A ligação visual imediata com o verde do Parque Aquilino Ribeiro'
+          ]
+        },
+        {
+          id: 5,
+          code: '05',
+          nome: 'Parque Aquilino Ribeiro',
+          categoriaMapa: 'natureza',
+          categoriaCaderno: 'Parques & Natureza',
+          epoca: '1635 / 1974 · Parque Urbano',
+          fonte: 'Visit Viseu & Center of Portugal',
+          coords: [40.65560, -7.91440],
+          morada: 'Av. 25 de Abril 25, Viseu',
+          horario: 'Acesso livre · Parque urbano',
+          descricao: 'Pulmão verde no centro da cidade onde diversas espécies botânicas convivem com um lago, zonas relvadas e a capela seiscentista dedicada a Nossa Senhora da Vitória.',
+          destaque: 'Lago, carvalhos antigos e Capela de N. Sra. da Vitória',
+          medalha: 'Sombra dos Carvalhos',
+          premio: 'Um passeio sem pressas à volta do lago ou um esboço livre de uma folha ou árvore.',
+          miniDesafio: 'Procura a pequena Capela de Nossa Senhora da Vitória escondida entre as copas e dá a volta ao lago.',
+          detalhes: [
+            'A Capela seiscentista de Nossa Senhora da Vitória',
+            'O lago central com reflexos das árvores',
+            'As placas botânicas junto às espécies mais antigas',
+            'Os caminhos sombreados pelos grandes carvalhos'
+          ]
+        },
+        {
+          id: 6,
+          code: '06',
+          nome: 'Solar dos Peixotos (Casa de Cimo de Vila)',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Barroco & Séc. XVIII',
+          epoca: 'Séc. XVIII · Casa de Cimo de Vila',
+          fonte: 'Center of Portugal',
+          coords: [40.65622, -7.91190],
+          morada: 'Cimo de Vila, Viseu',
+          horario: 'Observação exterior livre · Interior sujeito a marcação',
+          descricao: 'Casa apalaçada do século XVIII, exemplar notável da arquitetura civil portuguesa, famosa pela riqueza dos painéis de azulejos no interior, escadaria nobre e capela.',
+          destaque: 'Solar setecentista e património azulejar',
+          medalha: 'Caçadora de Azulejos',
+          premio: 'Escolher a tua cor ou padrão favorito da zona histórica para usar no bloco de esboço.',
+          miniDesafio: 'Admira a nobreza da fachada setecentista em Cimo de Vila e procura os detalhes brasonados e molduras das janelas.',
+          detalhes: [
+            'As molduras trabalhadas das janelas de sacada',
+            'O portal principal de casa senhorial',
+            'A textura das pedras antigas de Cimo de Vila',
+            'Os beirais tradicionais beirões sob o telhado'
+          ]
+        },
+        {
+          id: 7,
+          code: '07',
+          nome: 'Jardim de Santa Cristina',
+          categoriaMapa: 'natureza',
+          categoriaCaderno: 'Parques & Natureza',
+          epoca: 'Natureza & Memória',
+          fonte: 'Visit Viseu',
+          coords: [40.65630, -7.91020],
+          morada: 'Rua 4 de Dezembro 9, Viseu',
+          horario: 'Acesso livre · Jardim histórico',
+          descricao: 'Jardim acolhedor no centro histórico, marcado pela majestosa estátua em bronze de Dom António Alves Martins, Bispo de Viseu e ministro do Reino.',
+          destaque: 'Estátua de D. António Alves Martins e sombra tranquila',
+          medalha: 'Canto das Aves',
+          premio: 'Parar 60 segundos para identificar quantos sons de pássaros diferentes consegues ouvir.',
+          miniDesafio: 'Encontra a estátua de D. António Alves Martins e senta-te um instante à sombra das árvores do jardim.',
+          detalhes: [
+            'A estátua em bronze de D. António Alves Martins',
+            'Os canteiros geométricos e flores sazonais',
+            'As árvores que emolduram o pequeno mirante urbano',
+            'A transição imediata para o Largo Dona Amélia'
+          ]
+        },
+        {
+          id: 8,
+          code: '08',
+          nome: 'Fonte de Santa Cristina',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Património · Séc. XVI–XVII',
+          epoca: 'Séc. XVI–XVII',
+          fonte: 'Center of Portugal',
+          coords: [40.65639, -7.91000],
+          morada: 'Largo Dona Amélia, Viseu',
+          horario: 'Acesso livre 24h',
+          descricao: 'Elemento histórico imediatamente contíguo ao Jardim de Santa Cristina, testemunho do abastecimento de água e da vida quotidiana tradicional viseense.',
+          destaque: 'Chafariz histórico em granito junto ao jardim',
+          medalha: 'Água Antiga',
+          premio: 'Beber um bom gole de água fresca e renovar a energia para a caminhada.',
+          miniDesafio: 'Observa as bicas, o tanque de granito e imagina as conversas de quem aqui vinha buscar água há séculos.',
+          detalhes: [
+            'O tanque principal talhado em blocos de granito',
+            'As bicas metálicas e os sulcos gastos pelo tempo',
+            'O enquadramento da fonte com o casario do largo',
+            'Os líquenes e tons dourados da pedra antiga'
+          ]
+        },
+        {
+          id: 9,
+          code: '09',
+          nome: 'Praça Dom Duarte',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Séc. XIX–XX & Arte Urbana',
+          epoca: 'Séc. XVIII–XX · Centro Histórico',
+          fonte: 'Center of Portugal',
+          coords: [40.65940, -7.91140],
+          morada: 'Praça de Dom Duarte, Viseu',
+          horario: 'Acesso livre 24h · Junto à Sé Catedral',
+          descricao: 'Principal centro da cidade até ao final do século XIX, junto à ala sul da Sé Catedral. Homenageia o Rei D. Duarte, nascido em Viseu em 1391, com estátua erguida em 1955.',
+          destaque: 'Estátua de D. Duarte e casario sécs. XVIII–XIX',
+          medalha: 'Passos Reais',
+          premio: 'Uma pequena pausa para admirar o casario antigo e tirar uma foto digna de postal.',
+          miniDesafio: 'Lê a inscrição na base da estátua do Rei D. Duarte e procura a vista lateral da Sé Catedral.',
+          detalhes: [
+            'A estátua de D. Duarte (1955), Rei nascido em Viseu em 1391',
+            'As fachadas de azulejo e varandas de ferro da praça',
+            'A proximidade da ala sul da Sé Catedral',
+            'O chão de pedra tradicional que liga as ruas medievais'
+          ]
+        },
+        {
+          id: 10,
+          code: '10',
+          nome: 'Casa do Miradouro',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Património · Séc. XVI–XVII',
+          epoca: 'Séc. XVI · Largo António José Pereira',
+          fonte: 'Center of Portugal',
+          coords: [40.66010, -7.91160],
+          morada: 'Largo António José Pereira, Viseu',
+          horario: 'Exterior e pátio acessíveis · Coleção Arqueológica com horário próprio',
+          descricao: 'Edifício de granito não revestido com janelas geminadas quinhentistas, pátio relvado rodeado por árvores antigas e sede da Coleção Arqueológica de José Coelho.',
+          destaque: 'Janelas geminadas quinhentistas e pátio arborizado',
+          medalha: 'Janela no Tempo',
+          premio: 'Imaginar uma história curta sobre quem olhava pelas janelas geminadas no século XVI.',
+          miniDesafio: 'Descobre as duas janelas geminadas quinhentistas em granito e espreita o pátio tranquilo rodeado de árvores.',
+          detalhes: [
+            'As janelas geminadas quinhentistas em pedra lavrada',
+            'A fachada de granito aparente sem reboco',
+            'O pátio relvado com árvores antigas',
+            'A placa dedicada à Coleção Arqueológica de José Coelho'
+          ]
+        },
+        {
+          id: 11,
+          code: '11',
+          nome: 'Roteiro da Arte Urbana',
+          categoriaMapa: 'patrimonio',
+          categoriaCaderno: 'Séc. XIX–XX & Arte Urbana',
+          epoca: 'Arte Contemporânea',
+          fonte: 'Caderno da Letícia',
+          coords: [40.66060, -7.90880],
+          morada: 'Centro Histórico & Eixo para o Fontelo, Viseu',
+          horario: 'Acesso livre 24h · Galeria a céu aberto',
+          descricao: 'Ao longo das ruas antigas de Viseu e no caminho entre a zona da Sé e o Fontelo, grandes murais contemporâneos dialogam com as paredes de granito, trazendo cor, humor e poesia à cidade.',
+          destaque: 'Murais contemporâneos em diálogo com o centro histórico',
+          medalha: 'Alma Criativa',
+          premio: 'Um pequeno esboço criativo no caderno inspirado nas cores e formas da arte de rua.',
+          miniDesafio: 'Encontra pelo menos um mural ou intervenção artística numa parede da cidade e repara nas cores que contrastam com o granito.',
+          detalhes: [
+            'Um mural de grande escala numa empena urbana',
+            'As cores dominantes escolhidas pelo artista',
+            'O contraste entre o traço contemporâneo e a pedra antiga',
+            'Um detalhe escondido (assinatura, pássaro ou frase)'
+          ]
+        },
+        {
+          id: 12,
+          code: '12',
+          nome: 'Mata do Fontelo e Jardins do Paço Episcopal',
+          categoriaMapa: 'natureza',
+          categoriaCaderno: 'Parques & Natureza',
+          epoca: 'Séc. XVI · Jardim Renascentista',
+          fonte: 'Visit Viseu',
+          coords: [40.66150, -7.90350],
+          morada: 'Av. José Relvas, Viseu',
+          horario: 'Acesso livre diurno · Parque Florestal Urbano',
+          descricao: 'Refúgio natural onde o ruído da cidade desaparece entre árvores centenárias e os jardins históricos do antigo Paço Episcopal. No final, procura os pavões que guardam este habitat natural!',
+          destaque: 'Bosque centenário, jardins históricos e pavões',
+          medalha: 'Guardiã dos Pavões',
+          premio: 'Grande prémio final de passeio completo: um gelado, chocolate quente ou tarde preguiçosa sem culpas!',
+          miniDesafio: 'Encontra os pavões nos jardins do antigo Paço Episcopal e caminha devagar sob a copa das árvores centenárias.',
+          detalhes: [
+            'Os pavões coloridos a passear pelos jardins',
+            'O antigo Paço Episcopal e o tanque de pedra',
+            'Os troncos gigantes das árvores centenárias da mata',
+            'O silêncio fresco do bosque longe do trânsito'
+          ]
+        }
+      ];
+
+      var ZONES = [
+        { name: '🏠 Bairro 1º de Maio', coords: [40.6609, -7.9202], radius: 135, kind: 'start' },
+        { name: '🌿 Rossio & Aquilino', coords: [40.6568, -7.9140], radius: 220, kind: 'green' },
+        { name: '✨ Centro Histórico · Sé', coords: [40.6584, -7.9110], radius: 210, kind: 'heritage' },
+        { name: '🦚 Mata do Fontelo', coords: [40.6615, -7.9035], radius: 260, kind: 'green' }
+      ];
+
+      var state = {
+        tripMode: 'individual',
+        individualDestId: 1,
+        showAllRays: true,
+        routeFilter: 'completo',
+        statusFilter: 'todos',
+        categoryFilter: 'todas',
+        searchQuery: '',
+        returnToStart: true,
+        selectedStopId: 1,
+        activeModalStopId: 1,
+        activeModalTab: 'sobre',
+        activeMapsTab: 'individuais',
+        mobileMode: 'split',
+        showZones: true,
+        nudgeIndex: 0,
+        diaryTitle: '',
+        completedIds: [],
+        redeemedRewards: [],
+        records: {}
+      };
+
+      var sessionPhotos = {};
+      var map = null;
+      var routeGroup = null;
+      var zonesGroup = null;
+      var markerMap = {};
+      var sketchState = {
+        inkKey: 'moon',
+        width: 2.8,
+        drawing: false,
+        currentPoints: []
+      };
+      var toastTimer = null;
+
+      function cssVar(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      }
+
+      function getChallengeById(id) {
+        return CHALLENGES.find(function (c) { return c.id === id; }) || CHALLENGES[0];
+      }
+
+      function getStopRecord(id) {
+        var key = String(id);
+        if (!state.records[key]) {
+          state.records[key] = {
+            details: [false, false, false, false],
+            sensations: [],
+            notes: '',
+            strokes: []
+          };
+        }
+        return state.records[key];
+      }
+
+      function hasRecordContent(id) {
+        var rec = getStopRecord(id);
+        var hasDetails = Array.isArray(rec.details) && rec.details.some(Boolean);
+        var hasSens = Array.isArray(rec.sensations) && rec.sensations.length > 0;
+        var hasNotes = typeof rec.notes === 'string' && rec.notes.trim().length > 0;
+        var hasStrokes = Array.isArray(rec.strokes) && rec.strokes.length > 0;
+        var hasPhoto = Boolean(sessionPhotos[String(id)]);
+        return hasDetails || hasSens || hasNotes || hasStrokes || hasPhoto;
+      }
+
+      function isCompleted(id) {
+        return state.completedIds.indexOf(id) !== -1;
+      }
+
+      function getLevelInfo(count) {
+        if (count >= 12) return { level: 5, name: 'Rainha dos Passeios 👑' };
+        if (count >= 9) return { level: 4, name: 'Guardiã de Viseu 🦋' };
+        if (count >= 6) return { level: 3, name: 'Caçadora de Detalhes 🔮' };
+        if (count >= 3) return { level: 2, name: 'Exploradora do Rossio ✨' };
+        return { level: 1, name: 'Primeiros Passinhos 👟' };
+      }
+
+      function buildGoogleMapsWalkingUrl(originCoords, destCoords) {
+        return 'https://www.google.com/maps/dir/?api=1&origin=' +
+          originCoords[0].toFixed(5) + ',' + originCoords[1].toFixed(5) +
+          '&destination=' + destCoords[0].toFixed(5) + ',' + destCoords[1].toFixed(5) +
+          '&travelmode=walking';
+      }
+
+      function calculateWalkingDistanceKm(coordsA, coordsB) {
+        var R = 6371;
+        var toRad = function (deg) { return (deg * Math.PI) / 180; };
+        var dLat = toRad(coordsB[0] - coordsA[0]);
+        var dLon = toRad(coordsB[1] - coordsA[1]);
+        var lat1 = toRad(coordsA[0]);
+        var lat2 = toRad(coordsB[0]);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c * PEDESTRIAN_FACTOR;
+      }
+
+      function calculateWalkingMinutes(distanceKm) {
+        return (distanceKm / WALKING_SPEED_KMH) * 60;
+      }
+
+      function getEffortInfo(oneWayMinutes) {
+        if (oneWayMinutes <= 12) return { label: '🌱 Passeio curtinho', cls: 'badge-nature' };
+        if (oneWayMinutes <= 18) return { label: '💜 Passeio suave', cls: 'badge-lavender' };
+        return { label: '✨ Boa caminhada', cls: 'badge-pink' };
+      }
+
+      function formatSegmentDist(km) {
+        if (km < 1) {
+          return Math.max(10, Math.round((km * 1000) / 10) * 10) + ' m';
+        }
+        return km.toFixed(2).replace('.', ',') + ' km';
+      }
+
+      function formatTotalDist(km) {
+        return km.toFixed(2).replace('.', ',') + ' km';
+      }
+
+      function formatTotalTime(minutes) {
+        var rounded = Math.max(1, Math.round(minutes));
+        if (rounded < 60) return rounded + ' min';
+        var h = Math.floor(rounded / 60);
+        var m = rounded % 60;
+        return m === 0 ? h + ' h' : h + 'h ' + (m < 10 ? '0' + m : m) + 'm';
+      }
+
+      function getGeoFilteredRouteStops() {
+        var filtered = CHALLENGES.filter(function (c) {
+          if (state.routeFilter === 'natureza') return c.categoriaMapa === 'natureza';
+          if (state.routeFilter === 'patrimonio') return c.categoriaMapa === 'patrimonio';
+          return true;
+        });
+        return [START_HUB].concat(filtered);
+      }
+
+      function getCardFilteredChallenges() {
+        var q = state.searchQuery.trim().toLowerCase();
+        return CHALLENGES.filter(function (c) {
+          if (state.routeFilter === 'natureza' && c.categoriaMapa !== 'natureza') return false;
+          if (state.routeFilter === 'patrimonio' && c.categoriaMapa !== 'patrimonio') return false;
+          if (state.categoryFilter !== 'todas' && c.categoriaCaderno !== state.categoryFilter) return false;
+          if (state.statusFilter === 'por-fazer' && isCompleted(c.id)) return false;
+          if (state.statusFilter === 'concluidos' && !isCompleted(c.id)) return false;
+          if (state.statusFilter === 'com-registo' && !hasRecordContent(c.id)) return false;
+          if (q) {
+            var hay = (c.nome + ' ' + c.morada + ' ' + c.medalha + ' ' + c.descricao + ' ' + c.categoriaCaderno).toLowerCase();
+            if (hay.indexOf(q) === -1) return false;
+          }
+          return true;
+        });
+      }
+
+      function applySavedState(saved) {
+        if (!saved || typeof saved !== 'object') return;
+        if (Array.isArray(saved.completedIds)) state.completedIds = saved.completedIds;
+        if (Array.isArray(saved.redeemedRewards)) state.redeemedRewards = saved.redeemedRewards;
+        if (saved.records && typeof saved.records === 'object') state.records = saved.records;
+        if (typeof saved.diaryTitle === 'string') state.diaryTitle = saved.diaryTitle;
+        if (typeof saved.returnToStart === 'boolean') state.returnToStart = saved.returnToStart;
+        if (typeof saved.routeFilter === 'string') state.routeFilter = saved.routeFilter;
+        if (saved.tripMode === 'individual' || saved.tripMode === 'sequencial') state.tripMode = saved.tripMode;
+        if (typeof saved.individualDestId === 'number') state.individualDestId = saved.individualDestId;
+      }
+
+      async function loadPersistedState() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+            var saved = await window.notebookAppApi.getAppState();
+            if (saved) {
+              applySavedState(saved);
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn('Aviso ao ler estado da API:', err);
+        }
+        try {
+          var raw = window.localStorage.getItem(STORAGE_KEY);
+          if (raw) applySavedState(JSON.parse(raw));
+        } catch (err2) {
+          console.warn('Aviso ao ler localStorage:', err2);
+        }
+      }
+
+      async function savePersistedState() {
+        var payload = {
+          completedIds: state.completedIds,
+          redeemedRewards: state.redeemedRewards,
+          records: state.records,
+          diaryTitle: state.diaryTitle,
+          returnToStart: state.returnToStart,
+          routeFilter: state.routeFilter,
+          tripMode: state.tripMode,
+          individualDestId: state.individualDestId
+        };
+        try {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          console.warn('Aviso localStorage:', err);
+        }
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+            await window.notebookAppApi.setAppState(payload);
+          }
+        } catch (err2) {
+          console.warn('Aviso API setAppState:', err2);
+        }
+      }
+
+      function initMap() {
+        var mapEl = document.getElementById('map');
+        if (!mapEl || typeof window.L === 'undefined') return;
+
+        map = L.map('map', {
+          center: [40.6588, -7.9125],
+          zoom: 15,
+          minZoom: 13,
+          maxZoom: 17,
+          scrollWheelZoom: false,
+          attributionControl: true
+        });
+        map.attributionControl.setPrefix('');
+        map.attributionControl.addAttribution('Cartografia Esquemática · Viseu 💜');
+
+        zonesGroup = L.layerGroup().addTo(map);
+        routeGroup = L.layerGroup().addTo(map);
+      }
+
+      function renderMap() {
+        if (!map || !routeGroup || !zonesGroup) return;
+
+        zonesGroup.clearLayers();
+        routeGroup.clearLayers();
+        markerMap = {};
+
+        var primaryColor = cssVar('--primary');
+        var primaryHover = cssVar('--primary-hover');
+        var secondaryColor = cssVar('--secondary');
+        var tertiaryColor = cssVar('--tertiary');
+        var patrimonyColor = cssVar('--patrimony');
+
+        if (state.showZones) {
+          ZONES.forEach(function (z) {
+            var fill = z.kind === 'green' ? tertiaryColor : (z.kind === 'start' ? secondaryColor : primaryColor);
+            L.circle(z.coords, {
+              radius: z.radius,
+              color: fill,
+              weight: 1.2,
+              opacity: 0.32,
+              fillColor: fill,
+              fillOpacity: 0.08,
+              interactive: false
+            }).addTo(zonesGroup);
+
+            L.marker(z.coords, {
+              interactive: false,
+              icon: L.divIcon({
+                className: '',
+                html: '<div class="zone-label-icon">' + z.name + '</div>',
+                iconSize: [160, 20],
+                iconAnchor: [80, -20]
+              })
+            }).addTo(zonesGroup);
+          });
+        }
+
+        var routeStops = getGeoFilteredRouteStops();
+
+        if (state.tripMode === 'individual') {
+          var activeDest = getChallengeById(state.individualDestId);
+
+          if (state.showAllRays) {
+            routeStops.forEach(function (s) {
+              if (s.id === 0 || s.id === activeDest.id) return;
+              L.polyline([START_HUB.coords, s.coords], {
+                color: primaryHover,
+                weight: 1.5,
+                opacity: 0.24,
+                dashArray: '4, 6',
+                interactive: false
+              }).addTo(routeGroup);
+            });
+          }
+
+          L.polyline([START_HUB.coords, activeDest.coords], {
+            color: primaryHover,
+            weight: 9,
+            opacity: 0.25,
+            lineCap: 'round'
+          }).addTo(routeGroup);
+
+          L.polyline([START_HUB.coords, activeDest.coords], {
+            color: primaryColor,
+            weight: 4,
+            opacity: 0.96,
+            lineCap: 'round'
+          }).addTo(routeGroup);
+
+          if (state.returnToStart) {
+            var midLat = (START_HUB.coords[0] + activeDest.coords[0]) / 2 + 0.00045;
+            var midLng = (START_HUB.coords[1] + activeDest.coords[1]) / 2 - 0.00035;
+            L.polyline([activeDest.coords, [midLat, midLng], START_HUB.coords], {
+              color: secondaryColor,
+              weight: 2.8,
+              opacity: 0.9,
+              dashArray: '6, 8',
+              lineCap: 'round'
+            }).addTo(routeGroup);
+          }
+
+          var allStopsForMap = [START_HUB].concat(CHALLENGES);
+          allStopsForMap.forEach(function (stop, idx) {
+            var done = stop.id !== 0 && isCompleted(stop.id);
+            var isTarget = stop.id === activeDest.id;
+            var isOrigin = stop.id === 0;
+            var dimmed = !isTarget && !isOrigin;
+            var label = done ? '✓' : (isOrigin ? '🏠' : stop.code);
+            var catClass = 'cat-' + stop.categoriaMapa;
+
+            var icon = L.divIcon({
+              className: '',
+              html: '<div class="viseu-marker ' + catClass +
+                (done ? ' is-completed' : '') +
+                (isTarget || isOrigin ? ' is-selected' : '') +
+                (dimmed ? ' is-dimmed' : '') + '">' + label + '</div>',
+              iconSize: [34, 34],
+              iconAnchor: [17, 17],
+              popupAnchor: [0, -18]
+            });
+
+            var directKm = stop.id === 0 ? 0 : calculateWalkingDistanceKm(START_HUB.coords, stop.coords);
+            var directMin = Math.max(1, Math.round(calculateWalkingMinutes(directKm)));
+            var segText = stop.id === 0
+              ? 'Origem de todas as 12 saídas individuais'
+              : 'Do Bairro: ' + formatSegmentDist(directKm) + ' (~' + directMin + ' min ida · ~' + (directMin * 2) + ' min ida e volta)';
+
+            var gmapsUrl = stop.id === 0 ? '' : buildGoogleMapsWalkingUrl(START_HUB.coords, stop.coords);
+
+            var popupHtml =
+              '<div>' +
+                '<div class="popup-header ' + catClass + '">' +
+                  '<div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; opacity:0.92;">' + stop.code + ' · ' + stop.categoriaCaderno + '</div>' +
+                  '<div style="font-family:var(--font-headline); font-size:1.18rem; font-weight:600; line-height:1.15;">' + stop.nome + '</div>' +
+                '</div>' +
+                '<div class="popup-body">' +
+                  '<div style="font-size:0.78rem; color:var(--on-primary-container); font-weight:600;">' + segText + '</div>' +
+                  '<div style="font-size:0.82rem; color:var(--on-surface-variant);">' + stop.destaque + '</div>' +
+                  (stop.id !== 0
+                    ? '<div style="display:flex; flex-wrap:wrap; gap:0.4rem; padding-top:0.2rem;">' +
+                        '<button type="button" class="btn btn-primary btn-sm" onclick="openStopModalFromMap(' + stop.id + ')">📓 Caderno</button>' +
+                        '<a href="' + gmapsUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-pink btn-sm">🗺️ Google Maps</a>' +
+                      '</div>'
+                    : '') +
+                '</div>' +
+              '</div>';
+
+            var marker = L.marker(stop.coords, {
+              icon: icon,
+              zIndexOffset: isTarget ? 900 : (isOrigin ? 800 : idx * 10)
+            }).bindPopup(popupHtml, { maxWidth: 280 });
+
+            marker.on('click', function () {
+              if (stop.id !== 0) {
+                selectIndividualDestination(stop.id, false);
+              } else {
+                selectStopOnMap(0, false);
+              }
+            });
+
+            marker.addTo(routeGroup);
+            markerMap[stop.id] = marker;
+          });
+
+        } else {
+          var coords = routeStops.map(function (s) { return s.coords; });
+
+          if (coords.length > 1) {
+            L.polyline(coords, {
+              color: primaryHover,
+              weight: 8,
+              opacity: 0.22,
+              lineCap: 'round',
+              lineJoin: 'round'
+            }).addTo(routeGroup);
+
+            var routeStroke = state.routeFilter === 'natureza' ? tertiaryColor
+                            : (state.routeFilter === 'patrimonio' ? patrimonyColor : primaryColor);
+            L.polyline(coords, {
+              color: routeStroke,
+              weight: 3.8,
+              opacity: 0.94,
+              lineCap: 'round',
+              lineJoin: 'round'
+            }).addTo(routeGroup);
+          }
+
+          if (state.returnToStart && coords.length > 1) {
+            L.polyline([coords[coords.length - 1], coords[0]], {
+              color: secondaryColor,
+              weight: 3,
+              opacity: 0.9,
+              dashArray: '7, 8',
+              lineCap: 'round'
+            }).addTo(routeGroup);
+          }
+
+          routeStops.forEach(function (stop, idx) {
+            var done = stop.id !== 0 && isCompleted(stop.id);
+            var selected = state.selectedStopId === stop.id;
+            var label = done ? '✓' : (stop.id === 0 ? '🏠' : stop.code);
+            var catClass = 'cat-' + stop.categoriaMapa;
+
+            var icon = L.divIcon({
+              className: '',
+              html: '<div class="viseu-marker ' + catClass + (done ? ' is-completed' : '') + (selected ? ' is-selected' : '') + '">' + label + '</div>',
+              iconSize: [34, 34],
+              iconAnchor: [17, 17],
+              popupAnchor: [0, -18]
+            });
+
+            var prev = idx > 0 ? routeStops[idx - 1] : null;
+            var segText = prev
+              ? formatSegmentDist(calculateWalkingDistanceKm(prev.coords, stop.coords)) + ' · ~' + Math.round(calculateWalkingMinutes(calculateWalkingDistanceKm(prev.coords, stop.coords))) + ' min da paragem anterior'
+              : 'Ponto de partida do roteiro circular';
+
+            var popupHtml =
+              '<div>' +
+                '<div class="popup-header ' + catClass + '">' +
+                  '<div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; opacity:0.92;">' + stop.code + ' · ' + stop.categoriaCaderno + '</div>' +
+                  '<div style="font-family:var(--font-headline); font-size:1.18rem; font-weight:600; line-height:1.15;">' + stop.nome + '</div>' +
+                '</div>' +
+                '<div class="popup-body">' +
+                  '<div style="font-size:0.78rem; color:var(--on-primary-container);">' + segText + '</div>' +
+                  '<div style="font-size:0.82rem; color:var(--on-surface-variant);">' + stop.destaque + '</div>' +
+                  (stop.id !== 0
+                    ? '<div style="display:flex; flex-wrap:wrap; gap:0.4rem; padding-top:0.2rem;">' +
+                        '<button type="button" class="btn btn-primary btn-sm" onclick="openStopModalFromMap(' + stop.id + ')">📓 Abrir Caderno</button>' +
+                        '<button type="button" class="btn btn-secondary btn-sm" onclick="switchToIndividualForStop(' + stop.id + ')">🎯 Só do Bairro</button>' +
+                      '</div>'
+                    : '') +
+                '</div>' +
+              '</div>';
+
+            var marker = L.marker(stop.coords, {
+              icon: icon,
+              zIndexOffset: selected ? 600 : idx * 10
+            }).bindPopup(popupHtml, { maxWidth: 280 });
+
+            marker.on('click', function () {
+              selectStopOnMap(stop.id, false);
+            });
+
+            marker.addTo(routeGroup);
+            markerMap[stop.id] = marker;
+          });
+        }
+      }
+
+      function fitMapBounds() {
+        if (!map) return;
+        if (state.tripMode === 'individual') {
+          var dest = getChallengeById(state.individualDestId);
+          var boundsInd = L.latLngBounds([START_HUB.coords, dest.coords]);
+          map.fitBounds(boundsInd, { padding: [55, 55], maxZoom: 16 });
+        } else {
+          var routeStops = getGeoFilteredRouteStops();
+          if (routeStops.length === 0) return;
+          var bounds = L.latLngBounds(routeStops.map(function (s) { return s.coords; }));
+          map.fitBounds(bounds, { padding: [38, 38], maxZoom: 16 });
+        }
+      }
+
+      function selectIndividualDestination(id, fitAndOpenPopup) {
+        var stop = getChallengeById(id);
+        state.individualDestId = stop.id;
+        state.selectedStopId = stop.id;
+        savePersistedState();
+        renderAll(Boolean(fitAndOpenPopup));
+        var marker = markerMap[stop.id];
+        if (map && marker && fitAndOpenPopup) {
+          setTimeout(function () { marker.openPopup(); }, 220);
+        }
+      }
+
+      function switchToIndividualForStop(id) {
+        state.tripMode = 'individual';
+        state.individualDestId = id;
+        state.selectedStopId = id;
+        savePersistedState();
+        renderAll(true);
+        var stop = getChallengeById(id);
+        showToast('🎯 Percurso individual: Bairro 1º de Maio → ' + stop.nome);
+      }
+
+      function selectStopOnMap(id, openPopup) {
+        state.selectedStopId = id;
+        if (state.tripMode === 'individual' && id !== 0) {
+          state.individualDestId = id;
+          savePersistedState();
+        }
+        renderAll(false);
+        var marker = markerMap[id];
+        if (map && marker) {
+          map.panTo(marker.getLatLng(), { animate: true });
+          if (openPopup) marker.openPopup();
+        }
+        var card = document.getElementById('stop-card-' + id);
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+
+      function renderAll(shouldFit) {
+        renderModeSwitcherAndSpotlight();
+        renderHeaderAndMetrics();
+        renderFilterChips();
+        renderReturnToggle();
+        renderItineraryList();
+        renderMap();
+        if (shouldFit) fitMapBounds();
+      }
+
+      function renderModeSwitcherAndSpotlight() {
+        var isInd = state.tripMode === 'individual';
+        document.querySelectorAll('[data-trip-mode]').forEach(function (btn) {
+          var active = btn.getAttribute('data-trip-mode') === state.tripMode;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', String(active));
+        });
+
+        var raysBtn = document.getElementById('toggleRaysBtn');
+        if (raysBtn) {
+          raysBtn.style.display = isInd ? 'inline-flex' : 'none';
+          raysBtn.textContent = state.showAllRays ? 'Raios: Ativos' : 'Raios: Ocultos';
+        }
+
+        var spotlight = document.getElementById('individualSpotlight');
+        if (spotlight) spotlight.classList.toggle('is-hidden', !isInd);
+
+        if (isInd) {
+          var dest = getChallengeById(state.individualDestId);
+          var oneWayKm = calculateWalkingDistanceKm(START_HUB.coords, dest.coords);
+          var oneWayMin = Math.max(1, Math.round(calculateWalkingMinutes(oneWayKm)));
+          var roundKm = oneWayKm * 2;
+          var roundMin = Math.max(2, Math.round(calculateWalkingMinutes(roundKm)));
+          var effort = getEffortInfo(oneWayMin);
+
+          var titleEl = document.getElementById('spotlightTitle');
+          var effortEl = document.getElementById('spotlightEffortBadge');
+          var oneWayEl = document.getElementById('spotlightOneWay');
+          var roundEl = document.getElementById('spotlightRoundTrip');
+          var medalEl = document.getElementById('spotlightMedal');
+          var gmapsLink = document.getElementById('spotlightGmapsLink');
+
+          if (titleEl) titleEl.textContent = 'Bairro 1º de Maio → ' + dest.nome;
+          if (effortEl) {
+            effortEl.className = 'badge ' + effort.cls;
+            effortEl.textContent = effort.label;
+          }
+          if (oneWayEl) oneWayEl.textContent = formatSegmentDist(oneWayKm) + ' · ~' + oneWayMin + ' min';
+          if (roundEl) roundEl.textContent = formatTotalDist(roundKm) + ' · ~' + formatTotalTime(roundMin);
+          if (medalEl) medalEl.textContent = (isCompleted(dest.id) ? '🏅 ' : '🔒 ') + dest.medalha;
+          if (gmapsLink) gmapsLink.href = buildGoogleMapsWalkingUrl(START_HUB.coords, dest.coords);
+
+          var strip = document.getElementById('quickDestStrip');
+          if (strip) {
+            strip.innerHTML = CHALLENGES.map(function (c) {
+              var sel = c.id === dest.id;
+              var done = isCompleted(c.id);
+              var km = calculateWalkingDistanceKm(START_HUB.coords, c.coords);
+              var mins = Math.max(1, Math.round(calculateWalkingMinutes(km)));
+              return '<button type="button" class="dest-pill' + (sel ? ' is-selected' : '') + (done ? ' is-done' : '') + '" onclick="selectIndividualDestination(' + c.id + ', true)">' +
+                '<span>' + (done ? '✓' : c.code) + '</span>' +
+                '<span>' + c.nome.split(' (')[0].split(' e ')[0] + '</span>' +
+                '<span style="opacity:0.75; font-family:var(--font-mono); font-size:0.7rem;">' + mins + 'm</span>' +
+              '</button>';
+            }).join('');
+          }
+        }
+      }
+
+      function renderHeaderAndMetrics() {
+        var doneCount = state.completedIds.length;
+        var lvl = getLevelInfo(doneCount);
+        var pct = Math.round((doneCount / CHALLENGES.length) * 100);
+
+        var levelLabel = document.getElementById('levelLabel');
+        var levelCount = document.getElementById('levelCount');
+        if (levelLabel) levelLabel.textContent = 'Nv. ' + lvl.level + ' · ' + lvl.name;
+        if (levelCount) levelCount.textContent = doneCount + '/12';
+
+        var mStopsLabel = document.getElementById('metricStopsLabel');
+        var mStops = document.getElementById('metricStops');
+        var mStopsSub = document.getElementById('metricStopsSub');
+        var mDist = document.getElementById('metricDistance');
+        var mDistSub = document.getElementById('metricDistSub');
+        var mTime = document.getElementById('metricTime');
+        var mChal = document.getElementById('metricChallenges');
+        var mAwardsSub = document.getElementById('metricAwardsSub');
+        var fill = document.getElementById('progressFill');
+        var summary = document.getElementById('mapRouteSummary');
+        var scaleLabel = document.getElementById('mapScaleLabel');
+
+        if (state.tripMode === 'individual') {
+          var dest = getChallengeById(state.individualDestId);
+          var oneWayKm = calculateWalkingDistanceKm(START_HUB.coords, dest.coords);
+          var totalKm = state.returnToStart ? oneWayKm * 2 : oneWayKm;
+          var totalMin = calculateWalkingMinutes(totalKm);
+
+          if (mStopsLabel) mStopsLabel.textContent = 'Destino Individual';
+          if (mStops) mStops.textContent = '#' + dest.code;
+          if (mStopsSub) mStopsSub.textContent = dest.nome.length > 26 ? dest.nome.slice(0, 25) + '…' : dest.nome;
+          if (mDist) mDist.textContent = formatTotalDist(totalKm);
+          if (mDistSub) mDistSub.textContent = state.returnToStart ? 'Ida e volta ao Bairro' : 'Só ida desde o Bairro';
+          if (mTime) mTime.textContent = formatTotalTime(totalMin);
+          if (summary) summary.textContent = 'Bairro 1º de Maio ' + (state.returnToStart ? '↔ ' : '→ ') + dest.nome + ' · ' + formatTotalDist(totalKm);
+          if (scaleLabel) scaleLabel.textContent = 'Bairro → ' + dest.nome.split(' (')[0] + ' (' + formatSegmentDist(oneWayKm) + ' ida)';
+        } else {
+          var routeStops = getGeoFilteredRouteStops();
+          var seqKm = 0;
+          for (var i = 0; i < routeStops.length - 1; i++) {
+            seqKm += calculateWalkingDistanceKm(routeStops[i].coords, routeStops[i + 1].coords);
+          }
+          if (state.returnToStart && routeStops.length > 1) {
+            seqKm += calculateWalkingDistanceKm(routeStops[routeStops.length - 1].coords, routeStops[0].coords);
+          }
+          var seqMin = calculateWalkingMinutes(seqKm);
+
+          if (mStopsLabel) mStopsLabel.textContent = 'Paragens Ativas';
+          if (mStops) mStops.textContent = String(routeStops.length);
+          if (mStopsSub) mStopsSub.textContent = state.returnToStart ? 'Partida + ' + (routeStops.length - 1) + ' paragens (circular)' : 'Percurso de ida';
+          if (mDist) mDist.textContent = formatTotalDist(seqKm);
+          if (mDistSub) mDistSub.textContent = 'Haversine × 1,25 (urbano)';
+          if (mTime) mTime.textContent = formatTotalTime(seqMin);
+          if (summary) summary.textContent = (state.returnToStart ? 'Roteiro circular' : 'Roteiro de ida') + ' · ' + formatTotalDist(seqKm) + ' (~' + formatTotalTime(seqMin) + ')';
+          if (scaleLabel) scaleLabel.textContent = 'Escala real · Bairro 1º de Maio → Fontelo (~1,6 km)';
+        }
+
+        if (mChal) mChal.textContent = doneCount + '/12';
+        if (mAwardsSub) mAwardsSub.textContent = doneCount + ' medalhas · ' + state.redeemedRewards.length + ' mimos';
+        if (fill) fill.style.width = pct + '%';
+
+        var nudgeEl = document.getElementById('nudgeQuote');
+        if (nudgeEl) nudgeEl.textContent = '«' + NUDGES[state.nudgeIndex % NUDGES.length] + '»';
+      }
+
+      function renderFilterChips() {
+        document.querySelectorAll('[data-route-filter]').forEach(function (btn) {
+          var f = btn.getAttribute('data-route-filter');
+          btn.classList.remove('is-active', 'is-active-nature', 'is-active-heritage');
+          if (f === state.routeFilter) {
+            if (f === 'natureza') btn.classList.add('is-active-nature');
+            else if (f === 'patrimonio') btn.classList.add('is-active-heritage');
+            else btn.classList.add('is-active');
+          }
+        });
+
+        document.querySelectorAll('[data-status-filter]').forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-status-filter') === state.statusFilter);
+        });
+
+        document.querySelectorAll('[data-cat-filter]').forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-cat-filter') === state.categoryFilter);
+        });
+      }
+
+      function renderReturnToggle() {
+        var btn = document.getElementById('returnToggle');
+        var sub = document.getElementById('returnSub');
+        var title = document.getElementById('returnToggleTitle');
+        var leg = document.getElementById('legendReturn');
+        if (btn) btn.setAttribute('aria-checked', String(state.returnToStart));
+        if (leg) leg.style.display = state.returnToStart ? 'inline-flex' : 'none';
+
+        if (state.tripMode === 'individual') {
+          var dest = getChallengeById(state.individualDestId);
+          var oneWayKm = calculateWalkingDistanceKm(START_HUB.coords, dest.coords);
+          var oneWayMin = Math.max(1, Math.round(calculateWalkingMinutes(oneWayKm)));
+          if (title) title.textContent = 'Calcular ida e volta ao Bairro 1º de Maio';
+          if (sub) {
+            sub.textContent = state.returnToStart
+              ? 'Ida e volta incluída (+' + formatSegmentDist(oneWayKm) + ' · ~' + oneWayMin + ' min de regresso)'
+              : 'Mostra apenas a distância de ida até ao destino';
+          }
+        } else {
+          var routeStops = getGeoFilteredRouteStops();
+          if (title) title.textContent = 'Regresso circular ao Bairro 1º de Maio';
+          if (sub && routeStops.length > 1) {
+            var retKm = calculateWalkingDistanceKm(routeStops[routeStops.length - 1].coords, routeStops[0].coords);
+            var retMin = Math.round(calculateWalkingMinutes(retKm));
+            sub.textContent = state.returnToStart
+              ? 'Regresso incluído (+' + formatSegmentDist(retKm) + ' · ~' + retMin + ' min)'
+              : 'Termina na última paragem selecionada';
+          }
+        }
+      }
+
+      function renderItineraryList() {
+        var container = document.getElementById('itineraryList');
+        if (!container) return;
+
+        var visibleChallenges = getCardFilteredChallenges();
+        var isInd = state.tripMode === 'individual';
+        container.classList.toggle('is-individual-grid', isInd);
+
+        var htmlParts = [];
+
+        if (!isInd) {
+          htmlParts.push(
+            '<article id="stop-card-0" class="stop-card is-start-hub' + (state.selectedStopId === 0 ? ' is-selected' : '') + '" onclick="handleCardClick(0)">' +
+              '<div class="stop-head">' +
+                '<div class="stop-num-badge cat-partida">🏠</div>' +
+                '<div class="stop-title-wrap">' +
+                  '<div class="badge-row"><span class="badge badge-pink">Origem · Partida &amp; Chegada</span></div>' +
+                  '<h2 class="stop-title">' + START_HUB.nome + '</h2>' +
+                  '<div class="stop-meta">' + START_HUB.morada + '</div>' +
+                '</div>' +
+                '<button type="button" class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); focusStopFromCard(0)">Ver no mapa</button>' +
+              '</div>' +
+              '<p class="stop-desc">' + START_HUB.descricao + '</p>' +
+            '</article>'
+          );
+        }
+
+        if (visibleChallenges.length === 0) {
+          htmlParts.push(
+            '<div class="empty-state" style="margin-top:var(--space-md);">' +
+              '<h3 class="modal-title">Nenhuma paragem encontrada 🔮</h3>' +
+              '<p class="stop-desc">Ajusta a pesquisa ou limpa os filtros para voltar a ver os 12 destinos de Viseu.</p>' +
+              '<button type="button" class="btn btn-primary" onclick="clearAllFilters()">Mostrar todas as paragens</button>' +
+            '</div>'
+          );
+          container.innerHTML = htmlParts.join('');
+          return;
+        }
+
+        visibleChallenges.forEach(function (stop, idx) {
+          var done = isCompleted(stop.id);
+          var rec = getStopRecord(stop.id);
+          var detDone = rec.details.filter(Boolean).length;
+          var catBadgeClass = stop.categoriaMapa === 'natureza' ? 'badge-nature' : 'badge-heritage';
+
+          var directKm = calculateWalkingDistanceKm(START_HUB.coords, stop.coords);
+          var directMin = Math.max(1, Math.round(calculateWalkingMinutes(directKm)));
+          var effort = getEffortInfo(directMin);
+          var gmapsDirectUrl = buildGoogleMapsWalkingUrl(START_HUB.coords, stop.coords);
+
+          if (!isInd) {
+            var prevStop = idx === 0 ? START_HUB : visibleChallenges[idx - 1];
+            var segKm = calculateWalkingDistanceKm(prevStop.coords, stop.coords);
+            var segMin = Math.max(1, Math.round(calculateWalkingMinutes(segKm)));
+            htmlParts.push(
+              '<div class="segment-connector">' +
+                '<span class="segment-pill">🚶 ' + formatSegmentDist(segKm) + ' · ~' + segMin + ' min a pé</span>' +
+              '</div>'
+            );
+          }
+
+          var isActiveCard = isInd ? (state.individualDestId === stop.id) : (state.selectedStopId === stop.id);
+
+          htmlParts.push(
+            '<article id="stop-card-' + stop.id + '" class="stop-card' + (done ? ' is-completed' : '') + (isActiveCard ? ' is-selected' : '') + '" onclick="handleCardClick(' + stop.id + ')">' +
+              '<div class="stop-head">' +
+                '<div class="stop-num-badge cat-' + stop.categoriaMapa + (done ? ' is-done' : '') + '">' + (done ? '✓' : stop.code) + '</div>' +
+                '<div class="stop-title-wrap">' +
+                  '<div class="badge-row">' +
+                    '<span class="badge ' + catBadgeClass + '">' + (stop.categoriaMapa === 'natureza' ? '🌿 Natureza' : '🏛️ Património') + '</span>' +
+                    '<span class="badge ' + effort.cls + '">' + effort.label + '</span>' +
+                    (isInd && isActiveCard ? '<span class="badge badge-pink">✨ Rota ativa no mapa</span>' : '') +
+                  '</div>' +
+                  '<h2 class="stop-title">' + stop.nome + '</h2>' +
+                  '<div class="stop-meta">' + stop.epoca + ' · ' + stop.morada + '</div>' +
+                '</div>' +
+              '</div>' +
+              '<p class="stop-desc">' + stop.descricao + '</p>' +
+              '<div class="direct-trip-strip">' +
+                '<span>🏠 <strong>Do Bairro 1º de Maio:</strong> ' + formatSegmentDist(directKm) + ' (~' + directMin + ' min ida · ~' + (directMin * 2) + ' min ida e volta)</span>' +
+                '<a href="' + gmapsDirectUrl + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" style="color:#f9a8d4; font-weight:700; text-decoration:none;">Google Maps ↗</a>' +
+              '</div>' +
+              '<div class="stop-footer">' +
+                '<div class="medal-pill' + (done ? ' is-unlocked' : '') + '">' +
+                  '<span>' + (done ? '🏅 ' + stop.medalha : '🔒 ' + stop.medalha) + '</span>' +
+                  '<span>· ' + detDone + '/4 detalhes</span>' +
+                '</div>' +
+                '<div class="stop-actions">' +
+                  (isInd
+                    ? '<button type="button" class="btn ' + (isActiveCard ? 'btn-pink' : 'btn-secondary') + ' btn-sm" onclick="event.stopPropagation(); focusIndividualFromCard(' + stop.id + ')">' + (isActiveCard ? '🎯 Rota traçada' : '🎯 Traçar do Bairro') + '</button>'
+                    : '<button type="button" class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); switchToIndividualForStop(' + stop.id + ')">🎯 Só do Bairro</button>') +
+                  '<button type="button" class="btn ' + (done ? 'btn-emerald' : 'btn-primary') + ' btn-sm" onclick="event.stopPropagation(); openStopModal(' + stop.id + ')">Abrir Caderno →</button>' +
+                '</div>' +
+              '</div>' +
+            '</article>'
+          );
+        });
+
+        var routeStops = getGeoFilteredRouteStops();
+        if (!isInd && state.returnToStart && routeStops.length > 1) {
+          var lastStop = visibleChallenges[visibleChallenges.length - 1];
+          var retKm = calculateWalkingDistanceKm(lastStop.coords, START_HUB.coords);
+          var retMin = Math.max(1, Math.round(calculateWalkingMinutes(retKm)));
+          htmlParts.push(
+            '<div class="segment-connector is-return">' +
+              '<span class="segment-pill">↺ ' + formatSegmentDist(retKm) + ' · ~' + retMin + ' min de regresso</span>' +
+            '</div>' +
+            '<div class="stop-card is-start-hub">' +
+              '<div class="stop-head">' +
+                '<div class="stop-num-badge cat-partida">↺</div>' +
+                '<div class="stop-title-wrap">' +
+                  '<div class="badge-row"><span class="badge badge-pink">Chegada Circular</span></div>' +
+                  '<h2 class="stop-title">Regresso ao Bairro 1º de Maio</h2>' +
+                  '<div class="stop-meta">Caminhada de retorno desde ' + lastStop.nome + '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }
+
+        container.innerHTML = htmlParts.join('');
+      }
+
+      function handleCardClick(id) {
+        if (state.tripMode === 'individual' && id !== 0) {
+          selectIndividualDestination(id, true);
+        } else {
+          selectStopOnMap(id, true);
+        }
+      }
+
+      function focusStopFromCard(id) {
+        if (window.innerWidth <= 960 && state.mobileMode === 'list') {
+          setMobileMode('split');
+        }
+        selectStopOnMap(id, true);
+      }
+
+      function focusIndividualFromCard(id) {
+        if (window.innerWidth <= 960 && state.mobileMode === 'list') {
+          setMobileMode('split');
+        }
+        selectIndividualDestination(id, true);
+        var stop = getChallengeById(id);
+        showToast('🎯 Rota traçada: Bairro 1º de Maio → ' + stop.nome);
+      }
+
+      function openStopModalFromMap(id) {
+        openStopModal(id);
+      }
+
+      function clearAllFilters() {
+        state.routeFilter = 'completo';
+        state.statusFilter = 'todos';
+        state.categoryFilter = 'todas';
+        state.searchQuery = '';
+        var inp = document.getElementById('searchInput');
+        if (inp) inp.value = '';
+        renderAll(true);
+      }
+
+      function openStopModal(id) {
+        var stop = CHALLENGES.find(function (c) { return c.id === id; });
+        if (!stop) return;
+        state.activeModalStopId = id;
+        state.selectedStopId = id;
+        renderStopModalContent();
+        var modal = document.getElementById('stopModal');
+        if (modal) modal.classList.remove('is-hidden');
+        renderSketchCanvas();
+      }
+
+      function closeStopModal() {
+        var modal = document.getElementById('stopModal');
+        if (modal) modal.classList.add('is-hidden');
+      }
+
+      function switchStopModalTab(tabName) {
+        state.activeModalTab = tabName;
+        document.querySelectorAll('[data-stop-tab]').forEach(function (btn) {
+          var active = btn.getAttribute('data-stop-tab') === tabName;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', String(active));
+        });
+        var pSobre = document.getElementById('tabPanelSobre');
+        var pDesafio = document.getElementById('tabPanelDesafio');
+        var pRegisto = document.getElementById('tabPanelRegisto');
+        if (pSobre) pSobre.style.display = tabName === 'sobre' ? 'grid' : 'none';
+        if (pDesafio) pDesafio.style.display = tabName === 'desafio' ? 'grid' : 'none';
+        if (pRegisto) pRegisto.style.display = tabName === 'registo' ? 'grid' : 'none';
+
+        if (tabName === 'registo') {
+          setTimeout(renderSketchCanvas, 40);
+        }
+      }
+
+      function renderStopModalContent() {
+        var stop = CHALLENGES.find(function (c) { return c.id === state.activeModalStopId; });
+        if (!stop) return;
+        var done = isCompleted(stop.id);
+        var rec = getStopRecord(stop.id);
+
+        var directKm = calculateWalkingDistanceKm(START_HUB.coords, stop.coords);
+        var directMin = Math.max(1, Math.round(calculateWalkingMinutes(directKm)));
+        var roundKm = directKm * 2;
+        var roundMin = Math.max(2, Math.round(calculateWalkingMinutes(roundKm)));
+
+        var kicker = document.getElementById('stopModalKicker');
+        var title = document.getElementById('stopModalTitle');
+        var desc = document.getElementById('modalDescription');
+        var badges = document.getElementById('modalMetaBadges');
+        var fromBairro = document.getElementById('modalFromBairroInfo');
+        var gmapsBtn = document.getElementById('modalGmapsWalkBtn');
+        var addr = document.getElementById('modalAddress');
+        var sched = document.getElementById('modalSchedule');
+        var coordsEl = document.getElementById('modalCoordsText');
+        var medalStatus = document.getElementById('modalMedalStatus');
+        var medalName = document.getElementById('modalMedalName');
+        var rewardText = document.getElementById('modalRewardText');
+        var prompt = document.getElementById('modalChallengePrompt');
+        var completeBtn = document.getElementById('completeChallengeBtn');
+        var hint = document.getElementById('modalCompletionHint');
+
+        if (kicker) kicker.textContent = stop.code + ' · ' + stop.categoriaCaderno;
+        if (title) title.textContent = stop.nome;
+        if (desc) desc.textContent = stop.descricao;
+        if (badges) {
+          badges.innerHTML =
+            '<span class="badge ' + (stop.categoriaMapa === 'natureza' ? 'badge-nature' : 'badge-heritage') + '">' + stop.fonte + '</span>' +
+            '<span class="badge badge-lavender">' + stop.epoca + '</span>' +
+            '<span class="badge ' + (done ? 'badge-nature' : 'badge-pink') + '">' + (done ? '✓ Concluído' : 'Por fazer') + '</span>';
+        }
+        if (fromBairro) {
+          fromBairro.textContent = formatSegmentDist(directKm) + ' (~' + directMin + ' min só ida) · ' + formatTotalDist(roundKm) + ' (~' + formatTotalTime(roundMin) + ' ida e volta)';
+        }
+        if (gmapsBtn) gmapsBtn.href = buildGoogleMapsWalkingUrl(START_HUB.coords, stop.coords);
+
+        if (addr) addr.textContent = stop.morada;
+        if (sched) sched.textContent = stop.horario;
+        if (coordsEl) coordsEl.textContent = stop.coords[0].toFixed(5) + ', ' + stop.coords[1].toFixed(5);
+        if (medalStatus) medalStatus.textContent = done ? '🏅 Medalha desbloqueada!' : '🔒 Medalha a desbloquear';
+        if (medalName) medalName.textContent = stop.medalha;
+        if (rewardText) rewardText.textContent = '🎁 Mimo Merecido: ' + stop.premio;
+        if (prompt) prompt.textContent = '«' + stop.miniDesafio + '»';
+
+        if (completeBtn) {
+          completeBtn.textContent = done ? 'Desafio concluído ✓ (Desmarcar)' : 'Concluir desafio ✓';
+          completeBtn.className = 'btn ' + (done ? 'btn-secondary' : 'btn-emerald');
+        }
+        if (hint) {
+          hint.textContent = done ? 'Conquistaste esta medalha no teu caderno! 💜' : 'Conclui o desafio para desbloquear a medalha e o mimo.';
+        }
+
+        var idx = CHALLENGES.findIndex(function (c) { return c.id === stop.id; });
+        var prevBtn = document.getElementById('prevStopBtn');
+        var nextBtn = document.getElementById('nextStopBtn');
+        if (prevBtn) prevBtn.disabled = idx <= 0;
+        if (nextBtn) nextBtn.disabled = idx >= CHALLENGES.length - 1;
+
+        var detList = document.getElementById('modalDetailsList');
+        var detCount = document.getElementById('modalDetailsCount');
+        var checkedCount = rec.details.filter(Boolean).length;
+        if (detCount) detCount.textContent = checkedCount + '/4 descobertos';
+        if (detList) {
+          detList.innerHTML = stop.detalhes.map(function (txt, i) {
+            var isChk = Boolean(rec.details[i]);
+            return '<button type="button" class="detail-item' + (isChk ? ' is-checked' : '') + '" onclick="toggleDetailItem(' + i + ')">' +
+              '<span class="check-box">' + (isChk ? '✓' : '') + '</span>' +
+              '<span>' + txt + '</span>' +
+            '</button>';
+          }).join('');
+        }
+
+        var sensGrid = document.getElementById('sensationsGrid');
+        var sensCount = document.getElementById('sensationsCount');
+        if (sensCount) sensCount.textContent = rec.sensations.length + ' selecionadas';
+        if (sensGrid) {
+          sensGrid.innerHTML = SENSATION_OPTIONS.map(function (label) {
+            var active = rec.sensations.indexOf(label) !== -1;
+            return '<button type="button" class="chip-btn' + (active ? ' is-active' : '') + '" onclick="toggleSensation(\'' + label.replace(/'/g, "\\'") + '\')">' + label + '</button>';
+          }).join('');
+        }
+
+        var notesEl = document.getElementById('notesTextarea');
+        if (notesEl) notesEl.value = rec.notes || '';
+
+        var photoWrap = document.getElementById('photoPreviewWrap');
+        var photoImg = document.getElementById('photoPreviewImg');
+        var photoLbl = document.getElementById('photoMetaLabel');
+        var photoInput = document.getElementById('photoInput');
+        if (photoInput) photoInput.value = '';
+        var sessionPhoto = sessionPhotos[String(stop.id)];
+        if (photoWrap && photoImg && photoLbl) {
+          if (sessionPhoto) {
+            photoImg.src = sessionPhoto.url;
+            photoLbl.textContent = sessionPhoto.name;
+            photoWrap.style.display = 'grid';
+          } else {
+            photoImg.src = '';
+            photoWrap.style.display = 'none';
+          }
+        }
+      }
+
+      function toggleDetailItem(index) {
+        var rec = getStopRecord(state.activeModalStopId);
+        rec.details[index] = !rec.details[index];
+        savePersistedState();
+        renderStopModalContent();
+        renderItineraryList();
+      }
+
+      function toggleSensation(label) {
+        var rec = getStopRecord(state.activeModalStopId);
+        var idx = rec.sensations.indexOf(label);
+        if (idx === -1) rec.sensations.push(label);
+        else rec.sensations.splice(idx, 1);
+        savePersistedState();
+        renderStopModalContent();
+      }
+
+      function toggleCurrentChallengeCompletion() {
+        var id = state.activeModalStopId;
+        var stop = CHALLENGES.find(function (c) { return c.id === id; });
+        if (!stop) return;
+        var idx = state.completedIds.indexOf(id);
+        if (idx === -1) {
+          state.completedIds.push(id);
+          savePersistedState();
+          renderAll(false);
+          renderStopModalContent();
+          openCelebrationModal(stop);
+        } else {
+          state.completedIds.splice(idx, 1);
+          savePersistedState();
+          renderAll(false);
+          renderStopModalContent();
+          showToast('Desafio "' + stop.nome + '" desmarcado.');
+        }
+      }
+
+      function spawnConfetti() {
+        var box = document.getElementById('celebrationBox');
+        if (!box) return;
+        box.querySelectorAll('.confetti-piece').forEach(function (el) { el.remove(); });
+        var colors = ['#c084fc', '#f472b6', '#34d399', '#fbbf24', '#a855f7', '#e9d5ff'];
+        for (var i = 0; i < 28; i++) {
+          var piece = document.createElement('span');
+          piece.className = 'confetti-piece';
+          piece.style.left = Math.random() * 100 + '%';
+          piece.style.backgroundColor = colors[i % colors.length];
+          piece.style.animationDelay = (Math.random() * 0.55).toFixed(2) + 's';
+          piece.style.width = (7 + Math.random() * 6) + 'px';
+          piece.style.height = (7 + Math.random() * 6) + 'px';
+          box.appendChild(piece);
+        }
+      }
+
+      function openCelebrationModal(stop) {
+        var celModal = document.getElementById('celebrationModal');
+        var celMedal = document.getElementById('celebrationMedalName');
+        var celReward = document.getElementById('celebrationReward');
+        if (celMedal) celMedal.textContent = '🏅 Medalha: ' + stop.medalha;
+        if (celReward) celReward.textContent = '🎁 Mimo Merecido: ' + stop.premio;
+        if (celModal) {
+          celModal.classList.remove('is-hidden');
+          spawnConfetti();
+        }
+      }
+
+      function getInkHex(key) {
+        if (key === 'purple') return '#c084fc';
+        if (key === 'pink') return '#f472b6';
+        if (key === 'mint') return '#34d399';
+        if (key === 'gold') return '#fbbf24';
+        if (key === 'terracotta') return '#f472b6';
+        if (key === 'emerald') return '#34d399';
+        if (key === 'brass') return '#fbbf24';
+        return '#f5efff';
+      }
+
+      function renderSketchCanvas() {
+        var canvas = document.getElementById('sketchCanvas');
+        if (!canvas) return;
+        var rect = canvas.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          canvas.width = Math.round(rect.width);
+          canvas.height = Math.round(rect.height);
+        }
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        var rec = getStopRecord(state.activeModalStopId);
+        if (!rec.strokes || rec.strokes.length === 0) {
+          ctx.fillStyle = 'rgba(194, 179, 220, 0.55)';
+          ctx.font = '14px Plus Jakarta Sans, sans-serif';
+          ctx.fillText('✨ Esboça aqui um pequeno detalhe deste lugar…', 18, 34);
+          return;
+        }
+
+        rec.strokes.forEach(function (stroke) {
+          if (!stroke.points || stroke.points.length === 0) return;
+          ctx.beginPath();
+          ctx.strokeStyle = getInkHex(stroke.ink);
+          ctx.lineWidth = stroke.width || 2.8;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.moveTo(stroke.points[0][0] * canvas.width, stroke.points[0][1] * canvas.height);
+          for (var i = 1; i < stroke.points.length; i++) {
+            ctx.lineTo(stroke.points[i][0] * canvas.width, stroke.points[i][1] * canvas.height);
+          }
+          ctx.stroke();
+        });
+      }
+
+      function initSketchPadEvents() {
+        var canvas = document.getElementById('sketchCanvas');
+        if (!canvas) return;
+
+        function getRelPoint(e) {
+          var rect = canvas.getBoundingClientRect();
+          return [
+            Math.max(0, Math.min(1, (e.clientX - rect.left) / (rect.width || 1))),
+            Math.max(0, Math.min(1, (e.clientY - rect.top) / (rect.height || 1)))
+          ];
+        }
+
+        canvas.addEventListener('pointerdown', function (e) {
+          canvas.setPointerCapture(e.pointerId);
+          sketchState.drawing = true;
+          sketchState.currentPoints = [getRelPoint(e)];
+        });
+
+        canvas.addEventListener('pointermove', function (e) {
+          if (!sketchState.drawing) return;
+          sketchState.currentPoints.push(getRelPoint(e));
+          var ctx = canvas.getContext('2d');
+          if (!ctx) return;
+          renderSketchCanvas();
+          var pts = sketchState.currentPoints;
+          ctx.beginPath();
+          ctx.strokeStyle = getInkHex(sketchState.inkKey);
+          ctx.lineWidth = sketchState.width;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.moveTo(pts[0][0] * canvas.width, pts[0][1] * canvas.height);
+          for (var i = 1; i < pts.length; i++) {
+            ctx.lineTo(pts[i][0] * canvas.width, pts[i][1] * canvas.height);
+          }
+          ctx.stroke();
+        });
+
+        function finishStroke() {
+          if (!sketchState.drawing) return;
+          sketchState.drawing = false;
+          if (sketchState.currentPoints.length > 1) {
+            var rec = getStopRecord(state.activeModalStopId);
+            rec.strokes.push({
+              ink: sketchState.inkKey,
+              width: sketchState.width,
+              points: sketchState.currentPoints.map(function (p) {
+                return [Number(p[0].toFixed(3)), Number(p[1].toFixed(3))];
+              })
+            });
+            savePersistedState();
+          }
+          sketchState.currentPoints = [];
+          renderSketchCanvas();
+        }
+
+        canvas.addEventListener('pointerup', finishStroke);
+        canvas.addEventListener('pointercancel', finishStroke);
+      }
+
+      function openAwardsModal() {
+        var doneCount = state.completedIds.length;
+        var lvl = getLevelInfo(doneCount);
+        var titleEl = document.getElementById('awardsLevelTitle');
+        var subEl = document.getElementById('awardsLevelSub');
+        var gridEl = document.getElementById('awardsGrid');
+
+        if (titleEl) titleEl.textContent = 'Nv. ' + lvl.level + ' · ' + lvl.name;
+        if (subEl) subEl.textContent = doneCount + '/12 desafios concluídos · ' + state.redeemedRewards.length + ' mimos aproveitados';
+
+        if (gridEl) {
+          gridEl.innerHTML = CHALLENGES.map(function (stop) {
+            var unlocked = isCompleted(stop.id);
+            var redeemed = state.redeemedRewards.indexOf(stop.id) !== -1;
+            return '<div class="medal-card' + (unlocked ? ' is-unlocked' : '') + '">' +
+              '<div class="badge-row">' +
+                '<span class="badge ' + (unlocked ? 'badge-nature' : 'badge-lavender') + '">' + stop.code + ' · ' + (unlocked ? 'Desbloqueada' : 'Bloqueada') + '</span>' +
+              '</div>' +
+              '<div style="font-family:var(--font-headline); font-size:1.18rem; font-weight:600;">' + (unlocked ? '🏅 ' : '🔒 ') + stop.medalha + '</div>' +
+              '<div class="stop-meta">' + stop.nome + '</div>' +
+              '<div style="font-size:0.8125rem; color:var(--on-surface);">🎁 ' + stop.premio + '</div>' +
+              '<div class="stop-actions" style="padding-top:0.25rem;">' +
+                (unlocked
+                  ? '<button type="button" class="btn ' + (redeemed ? 'btn-emerald' : 'btn-secondary') + ' btn-sm" onclick="toggleRedeemedReward(' + stop.id + ')">' + (redeemed ? 'Mimo aproveitado ✓' : 'Marcar como aproveitado') + '</button>'
+                  : '<button type="button" class="btn btn-ghost btn-sm" onclick="closeAwardsModal(); openStopModal(' + stop.id + ')">Ir para paragem →</button>') +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        var modal = document.getElementById('awardsModal');
+        if (modal) modal.classList.remove('is-hidden');
+      }
+
+      function closeAwardsModal() {
+        var modal = document.getElementById('awardsModal');
+        if (modal) modal.classList.add('is-hidden');
+      }
+
+      function toggleRedeemedReward(id) {
+        var idx = state.redeemedRewards.indexOf(id);
+        if (idx === -1) state.redeemedRewards.push(id);
+        else state.redeemedRewards.splice(idx, 1);
+        savePersistedState();
+        renderHeaderAndMetrics();
+        openAwardsModal();
+      }
+
+      function switchMapsGuideTab(tabName) {
+        state.activeMapsTab = tabName;
+        document.querySelectorAll('[data-maps-tab]').forEach(function (btn) {
+          var active = btn.getAttribute('data-maps-tab') === tabName;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', String(active));
+        });
+        var tInd = document.getElementById('mapsTabIndividuais');
+        var tEt = document.getElementById('mapsTabEtapas');
+        if (tInd) tInd.style.display = tabName === 'individuais' ? 'grid' : 'none';
+        if (tEt) tEt.style.display = tabName === 'etapas' ? 'grid' : 'none';
+      }
+
+      function openMapsGuideModal() {
+        var indList = document.getElementById('mapsIndividualList');
+        if (indList) {
+          indList.innerHTML = CHALLENGES.map(function (c) {
+            var km = calculateWalkingDistanceKm(START_HUB.coords, c.coords);
+            var min = Math.max(1, Math.round(calculateWalkingMinutes(km)));
+            var url = buildGoogleMapsWalkingUrl(START_HUB.coords, c.coords);
+            return '<div class="panel" style="gap:0.55rem;">' +
+              '<div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.4rem;">' +
+                '<div style="font-family:var(--font-headline); font-weight:600; font-size:1.05rem;">' + c.code + '. Bairro 1º de Maio → ' + c.nome + '</div>' +
+                '<span class="segment-pill">' + formatSegmentDist(km) + ' (~' + min + ' min ida · ~' + (min * 2) + ' min ida/volta)</span>' +
+              '</div>' +
+              '<div class="stop-actions">' +
+                '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="btn btn-pink btn-sm">🗺️ Abrir rota no Google Maps</a>' +
+                '<button type="button" class="btn btn-secondary btn-sm" onclick="copyIndividualCoords(' + c.id + ')">📋 Copiar origem + destino</button>' +
+                '<button type="button" class="btn btn-ghost btn-sm" onclick="closeMapsGuideModal(); switchToIndividualForStop(' + c.id + ')">🎯 Ver no mapa aqui</button>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        var routeStops = getGeoFilteredRouteStops();
+        var sequence = state.returnToStart ? routeStops.concat([routeStops[0]]) : routeStops.slice();
+        var stages = [];
+
+        if (sequence.length - 2 <= MAX_GMAPS_WAYPOINTS) {
+          stages.push({ num: 1, points: sequence });
+        } else {
+          var splitIdx = Math.ceil((sequence.length - 1) / 2);
+          stages.push({ num: 1, points: sequence.slice(0, splitIdx + 1) });
+          stages.push({ num: 2, points: sequence.slice(splitIdx) });
+        }
+
+        var listEl = document.getElementById('mapsStagesList');
+        if (listEl) {
+          listEl.innerHTML = stages.map(function (st) {
+            var km = 0;
+            for (var i = 0; i < st.points.length - 1; i++) {
+              km += calculateWalkingDistanceKm(st.points[i].coords, st.points[i + 1].coords);
+            }
+            var min = calculateWalkingMinutes(km);
+            var lines = st.points.map(function (p, i) {
+              return (i + 1) + '. ' + p.nome + ' (' + p.coords[0].toFixed(5) + ', ' + p.coords[1].toFixed(5) + ')';
+            }).join('\n');
+
+            return '<div class="panel">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">' +
+                '<span class="badge badge-pink">Etapa ' + st.num + ' (' + st.points.length + ' pontos)</span>' +
+                '<span class="segment-pill">' + formatTotalDist(km) + ' · ~' + formatTotalTime(min) + '</span>' +
+              '</div>' +
+              '<div style="font-size:0.875rem; white-space:pre-line; color:var(--on-surface-variant);">' + lines + '</div>' +
+              '<button type="button" class="btn btn-primary btn-sm" onclick="copyStageText(' + st.num + ')">📋 Copiar paragens da Etapa ' + st.num + '</button>' +
+            '</div>';
+          }).join('');
+        }
+
+        switchMapsGuideTab(state.tripMode === 'individual' ? 'individuais' : 'etapas');
+        var modal = document.getElementById('mapsGuideModal');
+        if (modal) modal.classList.remove('is-hidden');
+      }
+
+      function closeMapsGuideModal() {
+        var modal = document.getElementById('mapsGuideModal');
+        if (modal) modal.classList.add('is-hidden');
+      }
+
+      function copyIndividualCoords(id) {
+        var stop = getChallengeById(id);
+        var text = 'Passeio Individual em Viseu\nOrigem: ' + START_HUB.nome + ' (' + START_HUB.coords[0].toFixed(5) + ', ' + START_HUB.coords[1].toFixed(5) + ')\nDestino: ' + stop.nome + ' (' + stop.coords[0].toFixed(5) + ', ' + stop.coords[1].toFixed(5) + ')\nGoogle Maps: ' + buildGoogleMapsWalkingUrl(START_HUB.coords, stop.coords);
+        copyToClipboard(text, 'Rota para ' + stop.nome + ' copiada! 💜');
+      }
+
+      function copyStageText(stageNum) {
+        var routeStops = getGeoFilteredRouteStops();
+        var sequence = state.returnToStart ? routeStops.concat([routeStops[0]]) : routeStops.slice();
+        var pts = sequence;
+        if (sequence.length - 2 > MAX_GMAPS_WAYPOINTS) {
+          var splitIdx = Math.ceil((sequence.length - 1) / 2);
+          pts = stageNum === 1 ? sequence.slice(0, splitIdx + 1) : sequence.slice(splitIdx);
+        }
+        var text = 'Roteiro Pedestre em Viseu — Etapa ' + stageNum + '\n' +
+          pts.map(function (p, i) {
+            return (i + 1) + '. ' + p.nome + ' — ' + p.coords[0].toFixed(5) + ', ' + p.coords[1].toFixed(5);
+          }).join('\n');
+        copyToClipboard(text, 'Coordenadas da Etapa ' + stageNum + ' copiadas!');
+      }
+
+      function openDiaryModal() {
+        var titleInp = document.getElementById('diaryTitleInput');
+        if (titleInp) titleInp.value = state.diaryTitle || '';
+
+        var box = document.getElementById('diarySummaryBox');
+        if (box) {
+          var doneStops = CHALLENGES.filter(function (c) { return isCompleted(c.id); });
+          var entries = CHALLENGES.filter(function (c) { return isCompleted(c.id) || hasRecordContent(c.id); });
+          box.innerHTML =
+            '<div style="font-weight:700;">💜 Resumo do Caderno da Letícia</div>' +
+            '<div class="stop-meta">' + doneStops.length + ' de 12 desafios concluídos · ' + entries.length + ' paragens com registo ou notas</div>';
+        }
+
+        var resetBtn = document.getElementById('resetNotebookBtn');
+        if (resetBtn) {
+          resetBtn.dataset.armed = 'false';
+          resetBtn.textContent = 'Reiniciar';
+        }
+
+        var modal = document.getElementById('diaryModal');
+        if (modal) modal.classList.remove('is-hidden');
+      }
+
+      function buildDiaryPlainText() {
+        var title = (state.diaryTitle || 'Passeio por Viseu — Caderno da Letícia Gomez').trim();
+        var lines = [
+          title,
+          '==================================================',
+          'Progresso: ' + state.completedIds.length + '/12 desafios concluídos',
+          'Nível: Nv. ' + getLevelInfo(state.completedIds.length).level + ' · ' + getLevelInfo(state.completedIds.length).name,
+          ''
+        ];
+
+        CHALLENGES.forEach(function (c) {
+          var done = isCompleted(c.id);
+          var rec = getStopRecord(c.id);
+          var directKm = calculateWalkingDistanceKm(START_HUB.coords, c.coords);
+          var directMin = Math.max(1, Math.round(calculateWalkingMinutes(directKm)));
+          lines.push(c.code + '. ' + c.nome + ' [' + (done ? 'Concluído — Medalha: ' + c.medalha : 'Por fazer') + ']');
+          lines.push('   Morada: ' + c.morada + ' (' + c.coords[0].toFixed(5) + ', ' + c.coords[1].toFixed(5) + ')');
+          lines.push('   Do Bairro 1º de Maio: ' + formatSegmentDist(directKm) + ' (~' + directMin + ' min ida)');
+          var detCount = rec.details.filter(Boolean).length;
+          lines.push('   Detalhes descobertos: ' + detCount + '/4');
+          if (rec.sensations.length > 0) {
+            lines.push('   Sensações: ' + rec.sensations.join(', '));
+          }
+          if (rec.notes && rec.notes.trim()) {
+            lines.push('   Notas: ' + rec.notes.trim());
+          }
+          if (rec.strokes && rec.strokes.length > 0) {
+            lines.push('   Esboço tátil: ' + rec.strokes.length + ' traços guardados');
+          }
+          lines.push('');
+        });
+
+        return lines.join('\n');
+      }
+
+      function exportDiaryTxt() {
+        var content = buildDiaryPlainText();
+        var filename = 'passeio-viseu-leticia.txt';
+        if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+          window.notebookAppApi.triggerFileDownload({
+            content: content,
+            contentType: 'text/plain',
+            encoding: 'UTF-8',
+            filename: filename
+          });
+          showToast('Diário exportado como ' + filename);
+        } else {
+          var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          URL.revokeObjectURL(url);
+          showToast('Diário exportado! 💜');
+        }
+      }
+
+      function copyToClipboard(text, message) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            showToast(message);
+          }).catch(function () {
+            showToast('Copiado: ' + text.slice(0, 40));
+          });
+        } else {
+          showToast(message);
+        }
+      }
+
+      function showToast(msg) {
+        var toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove('is-visible');
+        }, 2600);
+      }
+
+      function setMobileMode(mode) {
+        state.mobileMode = mode;
+        var ws = document.getElementById('workspace');
+        if (ws) {
+          ws.classList.remove('mode-split', 'mode-list', 'mode-map');
+          ws.classList.add('mode-' + mode);
+        }
+        document.querySelectorAll('[data-mobile-mode]').forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-mobile-mode') === mode);
+        });
+        if (map && mode !== 'list') {
+          setTimeout(function () { map.invalidateSize(); }, 100);
+        }
+      }
+
+      function bindEvents() {
+        document.querySelectorAll('[data-trip-mode]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.tripMode = btn.getAttribute('data-trip-mode');
+            savePersistedState();
+            renderAll(true);
+            showToast(state.tripMode === 'individual'
+              ? '🎯 Modo Saídas do Bairro ativado!'
+              : '🗺️ Modo Roteiro Completo ativado!');
+          });
+        });
+
+        var spotlightOpenBtn = document.getElementById('spotlightOpenCadernoBtn');
+        if (spotlightOpenBtn) {
+          spotlightOpenBtn.addEventListener('click', function () {
+            openStopModal(state.individualDestId);
+          });
+        }
+
+        var spotlightCopyBtn = document.getElementById('spotlightCopyCoordsBtn');
+        if (spotlightCopyBtn) {
+          spotlightCopyBtn.addEventListener('click', function () {
+            copyIndividualCoords(state.individualDestId);
+          });
+        }
+
+        var searchInp = document.getElementById('searchInput');
+        if (searchInp) {
+          searchInp.addEventListener('input', function () {
+            state.searchQuery = searchInp.value;
+            renderItineraryList();
+          });
+        }
+
+        document.querySelectorAll('[data-route-filter]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.routeFilter = btn.getAttribute('data-route-filter');
+            savePersistedState();
+            renderAll(true);
+          });
+        });
+
+        document.querySelectorAll('[data-status-filter]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.statusFilter = btn.getAttribute('data-status-filter');
+            renderFilterChips();
+            renderItineraryList();
+          });
+        });
+
+        document.querySelectorAll('[data-cat-filter]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.categoryFilter = btn.getAttribute('data-cat-filter');
+            renderFilterChips();
+            renderItineraryList();
+          });
+        });
+
+        var retToggle = document.getElementById('returnToggle');
+        if (retToggle) {
+          retToggle.addEventListener('click', function () {
+            state.returnToStart = !state.returnToStart;
+            savePersistedState();
+            renderAll(true);
+            showToast(state.returnToStart ? 'Ida e volta ao Bairro 1º de Maio ativada 💜' : 'Apenas percurso de ida selecionado.');
+          });
+        }
+
+        var nextNudgeBtn = document.getElementById('nextNudgeBtn');
+        if (nextNudgeBtn) {
+          nextNudgeBtn.addEventListener('click', function () {
+            state.nudgeIndex = (state.nudgeIndex + 1) % NUDGES.length;
+            renderHeaderAndMetrics();
+          });
+        }
+
+        var surpriseBtn = document.getElementById('surpriseStopBtn');
+        if (surpriseBtn) {
+          surpriseBtn.addEventListener('click', function () {
+            var pool = CHALLENGES.filter(function (c) { return !isCompleted(c.id); });
+            if (pool.length === 0) pool = CHALLENGES;
+            var picked = pool[Math.floor(Math.random() * pool.length)];
+            if (state.tripMode === 'individual') {
+              selectIndividualDestination(picked.id, true);
+            } else {
+              selectStopOnMap(picked.id, true);
+            }
+            openStopModal(picked.id);
+            showToast('🎲 Desafio surpresa: ' + picked.nome + '!');
+          });
+        }
+
+        var closestBtn = document.getElementById('closestWalkBtn');
+        if (closestBtn) {
+          closestBtn.addEventListener('click', function () {
+            var pool = CHALLENGES.filter(function (c) { return !isCompleted(c.id); });
+            if (pool.length === 0) pool = CHALLENGES;
+            var sorted = pool.slice().sort(function (a, b) {
+              return calculateWalkingDistanceKm(START_HUB.coords, a.coords) -
+                     calculateWalkingDistanceKm(START_HUB.coords, b.coords);
+            });
+            var nearest = sorted[0];
+            state.tripMode = 'individual';
+            selectIndividualDestination(nearest.id, true);
+            var mins = Math.max(1, Math.round(calculateWalkingMinutes(calculateWalkingDistanceKm(START_HUB.coords, nearest.coords))));
+            showToast('🌱 Mais pertinho de casa: ' + nearest.nome + ' (~' + mins + ' min ida)!');
+          });
+        }
+
+        var fitBtn = document.getElementById('fitMapBtn');
+        if (fitBtn) fitBtn.addEventListener('click', function () { fitMapBounds(); showToast('Mapa centrado no percurso ✨'); });
+
+        var zonesBtn = document.getElementById('toggleZonesBtn');
+        if (zonesBtn) {
+          zonesBtn.addEventListener('click', function () {
+            state.showZones = !state.showZones;
+            zonesBtn.textContent = state.showZones ? 'Zonas: Ativas' : 'Zonas: Ocultas';
+            renderMap();
+          });
+        }
+
+        var raysBtn = document.getElementById('toggleRaysBtn');
+        if (raysBtn) {
+          raysBtn.addEventListener('click', function () {
+            state.showAllRays = !state.showAllRays;
+            raysBtn.textContent = state.showAllRays ? 'Raios: Ativos' : 'Raios: Ocultos';
+            renderMap();
+          });
+        }
+
+        document.querySelectorAll('[data-mobile-mode]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            setMobileMode(btn.getAttribute('data-mobile-mode'));
+          });
+        });
+
+        var closeStopBtn = document.getElementById('closeStopModalBtn');
+        if (closeStopBtn) closeStopBtn.addEventListener('click', closeStopModal);
+
+        var modalTraceBtn = document.getElementById('modalTraceIndividualBtn');
+        if (modalTraceBtn) {
+          modalTraceBtn.addEventListener('click', function () {
+            var id = state.activeModalStopId;
+            closeStopModal();
+            switchToIndividualForStop(id);
+          });
+        }
+
+        var prevStopBtn = document.getElementById('prevStopBtn');
+        if (prevStopBtn) {
+          prevStopBtn.addEventListener('click', function () {
+            var idx = CHALLENGES.findIndex(function (c) { return c.id === state.activeModalStopId; });
+            if (idx > 0) openStopModal(CHALLENGES[idx - 1].id);
+          });
+        }
+
+        var nextStopBtn = document.getElementById('nextStopBtn');
+        if (nextStopBtn) {
+          nextStopBtn.addEventListener('click', function () {
+            var idx = CHALLENGES.findIndex(function (c) { return c.id === state.activeModalStopId; });
+            if (idx < CHALLENGES.length - 1) openStopModal(CHALLENGES[idx + 1].id);
+          });
+        }
+
+        document.querySelectorAll('[data-stop-tab]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            switchStopModalTab(btn.getAttribute('data-stop-tab'));
+          });
+        });
+
+        document.querySelectorAll('[data-maps-tab]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            switchMapsGuideTab(btn.getAttribute('data-maps-tab'));
+          });
+        });
+
+        var copyCoordsBtn = document.getElementById('copyCoordsBtn');
+        if (copyCoordsBtn) {
+          copyCoordsBtn.addEventListener('click', function () {
+            var stop = CHALLENGES.find(function (c) { return c.id === state.activeModalStopId; });
+            if (stop) copyToClipboard(stop.coords[0].toFixed(5) + ', ' + stop.coords[1].toFixed(5), 'Coordenadas copiadas! 📋');
+          });
+        }
+
+        var completeBtn = document.getElementById('completeChallengeBtn');
+        if (completeBtn) completeBtn.addEventListener('click', toggleCurrentChallengeCompletion);
+
+        var notesEl = document.getElementById('notesTextarea');
+        if (notesEl) {
+          notesEl.addEventListener('input', function () {
+            var rec = getStopRecord(state.activeModalStopId);
+            rec.notes = notesEl.value;
+            savePersistedState();
+          });
+        }
+
+        var photoInput = document.getElementById('photoInput');
+        if (photoInput) {
+          photoInput.addEventListener('change', function (e) {
+            var file = e.target.files && e.target.files[0];
+            if (!file) return;
+            var objUrl = URL.createObjectURL(file);
+            var img = new Image();
+            img.onload = function () {
+              var maxDim = 900;
+              var scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+              var c = document.createElement('canvas');
+              c.width = Math.round(img.width * scale);
+              c.height = Math.round(img.height * scale);
+              var ctx = c.getContext('2d');
+              if (ctx) ctx.drawImage(img, 0, 0, c.width, c.height);
+              URL.revokeObjectURL(objUrl);
+              c.toBlob(function (blob) {
+                if (!blob) return;
+                var prev = sessionPhotos[String(state.activeModalStopId)];
+                if (prev && prev.url) URL.revokeObjectURL(prev.url);
+                sessionPhotos[String(state.activeModalStopId)] = {
+                  url: URL.createObjectURL(blob),
+                  name: file.name + ' (' + c.width + '×' + c.height + ' px)'
+                };
+                renderStopModalContent();
+                renderItineraryList();
+                showToast('📸 Fotografia adicionada à sessão!');
+              }, 'image/jpeg', 0.85);
+            };
+            img.src = objUrl;
+          });
+        }
+
+        var removePhotoBtn = document.getElementById('removePhotoBtn');
+        if (removePhotoBtn) {
+          removePhotoBtn.addEventListener('click', function () {
+            var prev = sessionPhotos[String(state.activeModalStopId)];
+            if (prev && prev.url) URL.revokeObjectURL(prev.url);
+            delete sessionPhotos[String(state.activeModalStopId)];
+            renderStopModalContent();
+            renderItineraryList();
+          });
+        }
+
+        document.querySelectorAll('[data-ink-color]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            sketchState.inkKey = btn.getAttribute('data-ink-color');
+            document.querySelectorAll('[data-ink-color]').forEach(function (b) {
+              b.classList.toggle('is-active', b === btn);
+            });
+          });
+        });
+
+        var thinBtn = document.getElementById('strokeThinBtn');
+        var thickBtn = document.getElementById('strokeThickBtn');
+        if (thinBtn && thickBtn) {
+          thinBtn.addEventListener('click', function () {
+            sketchState.width = 2.8;
+            thinBtn.classList.add('is-active');
+            thickBtn.classList.remove('is-active');
+          });
+          thickBtn.addEventListener('click', function () {
+            sketchState.width = 6.5;
+            thickBtn.classList.add('is-active');
+            thinBtn.classList.remove('is-active');
+          });
+        }
+
+        var undoBtn = document.getElementById('undoSketchBtn');
+        if (undoBtn) {
+          undoBtn.addEventListener('click', function () {
+            var rec = getStopRecord(state.activeModalStopId);
+            if (rec.strokes.length > 0) {
+              rec.strokes.pop();
+              savePersistedState();
+              renderSketchCanvas();
+            }
+          });
+        }
+
+        var clearSketchBtn = document.getElementById('clearSketchBtn');
+        if (clearSketchBtn) {
+          clearSketchBtn.addEventListener('click', function () {
+            var rec = getStopRecord(state.activeModalStopId);
+            rec.strokes = [];
+            savePersistedState();
+            renderSketchCanvas();
+          });
+        }
+
+        var celContinue = document.getElementById('celebrationContinueBtn');
+        if (celContinue) {
+          celContinue.addEventListener('click', function () {
+            var m = document.getElementById('celebrationModal');
+            if (m) m.classList.add('is-hidden');
+          });
+        }
+        var celAwards = document.getElementById('celebrationAwardsBtn');
+        if (celAwards) {
+          celAwards.addEventListener('click', function () {
+            var m = document.getElementById('celebrationModal');
+            if (m) m.classList.add('is-hidden');
+            closeStopModal();
+            openAwardsModal();
+          });
+        }
+
+        var openAwardsBtn = document.getElementById('openAwardsBtn');
+        if (openAwardsBtn) openAwardsBtn.addEventListener('click', openAwardsModal);
+        var closeAwardsBtn = document.getElementById('closeAwardsModalBtn');
+        if (closeAwardsBtn) closeAwardsBtn.addEventListener('click', closeAwardsModal);
+
+        var openMapsGuideBtn = document.getElementById('openMapsGuideBtn');
+        if (openMapsGuideBtn) openMapsGuideBtn.addEventListener('click', openMapsGuideModal);
+        var closeMapsGuideBtn = document.getElementById('closeMapsGuideBtn');
+        if (closeMapsGuideBtn) closeMapsGuideBtn.addEventListener('click', closeMapsGuideModal);
+
+        var openDiaryBtn = document.getElementById('openDiaryBtn');
+        if (openDiaryBtn) openDiaryBtn.addEventListener('click', openDiaryModal);
+        var closeDiaryBtn = document.getElementById('closeDiaryModalBtn');
+        if (closeDiaryBtn) {
+          closeDiaryBtn.addEventListener('click', function () {
+            var m = document.getElementById('diaryModal');
+            if (m) m.classList.add('is-hidden');
+          });
+        }
+
+        var diaryTitleInp = document.getElementById('diaryTitleInput');
+        if (diaryTitleInp) {
+          diaryTitleInp.addEventListener('input', function () {
+            state.diaryTitle = diaryTitleInp.value;
+            savePersistedState();
+          });
+        }
+
+        var printBtn = document.getElementById('printPdfBtn');
+        if (printBtn) {
+          printBtn.addEventListener('click', function () {
+            var m = document.getElementById('diaryModal');
+            if (m) m.classList.add('is-hidden');
+            window.print();
+          });
+        }
+
+        var exportBtn = document.getElementById('exportTxtBtn');
+        if (exportBtn) exportBtn.addEventListener('click', exportDiaryTxt);
+
+        var resetBtn = document.getElementById('resetNotebookBtn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            if (resetBtn.dataset.armed !== 'true') {
+              resetBtn.dataset.armed = 'true';
+              resetBtn.textContent = 'Clica outra vez para confirmar';
+              return;
+            }
+            resetBtn.dataset.armed = 'false';
+            resetBtn.textContent = 'Reiniciar';
+            state.completedIds = [];
+            state.redeemedRewards = [];
+            state.records = {};
+            state.diaryTitle = '';
+            sessionPhotos = {};
+            savePersistedState();
+            renderAll(false);
+            var m = document.getElementById('diaryModal');
+            if (m) m.classList.add('is-hidden');
+            showToast('Caderno reiniciado.');
+          });
+        }
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            closeStopModal();
+            closeAwardsModal();
+            closeMapsGuideModal();
+            var m1 = document.getElementById('celebrationModal');
+            var m3 = document.getElementById('diaryModal');
+            if (m1) m1.classList.add('is-hidden');
+            if (m3) m3.classList.add('is-hidden');
+          }
+        });
+
+        window.addEventListener('resize', function () {
+          if (map) map.invalidateSize();
+        });
+      }
+
+      window.handleCardClick = handleCardClick;
+      window.focusStopFromCard = focusStopFromCard;
+      window.focusIndividualFromCard = focusIndividualFromCard;
+      window.selectIndividualDestination = selectIndividualDestination;
+      window.switchToIndividualForStop = switchToIndividualForStop;
+      window.openStopModal = openStopModal;
+      window.openStopModalFromMap = openStopModalFromMap;
+      window.clearAllFilters = clearAllFilters;
+      window.toggleDetailItem = toggleDetailItem;
+      window.toggleSensation = toggleSensation;
+      window.toggleRedeemedReward = toggleRedeemedReward;
+      window.closeAwardsModal = closeAwardsModal;
+      window.closeMapsGuideModal = closeMapsGuideModal;
+      window.copyIndividualCoords = copyIndividualCoords;
+      window.copyStageText = copyStageText;
+
+      async function boot() {
+        await loadPersistedState();
+        initMap();
+        initSketchPadEvents();
+        bindEvents();
+        renderAll(true);
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+          window.notebookAppApi.notifyAppReady();
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', boot);
+    })();
+  </script>
+</body>
+</html>
